@@ -17,6 +17,13 @@ class Admin {
 	public $active_tab;
 
 	public function __construct() {
+		// Clean transiets data if url has email parameter & value match with database email.
+		$email = isset( $_GET['email'] ) ? sanitize_text_field( wp_unslash( $_GET['email'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if ( $email ) {
+			$this->clear_transients();
+		}
+
 		add_action( 'admin_menu', array( $this, 'register_plugin_menus' ) );
 		add_action( 'admin_init', array( $this, 'register_setting_sections' ) );
 

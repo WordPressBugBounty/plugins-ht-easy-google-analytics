@@ -13,6 +13,8 @@
 	$opt_account        = $this->get_option( 'account' );
 	$opt_measurement_id = $this->get_option( 'measurement_id' );
 
+	$is_permission_missing = false;
+
 	$accounts = $this->get_accounts_data_prepared();
 if ( ! empty( $accounts['error'] ) ) {
 	$accounts = array(
@@ -36,6 +38,15 @@ if ( ! empty( $data_streams['error'] ) ) {
 	$data_streams = array(
 		'error' => __( 'Error: ', 'ht-easy-ga4' ) . $data_streams['error']['message'],
 	);
+}
+
+
+if ( $this->accounts_result ) {
+	$accounts_response = json_decode($this->accounts_result, true);
+
+	if ( ! empty( $accounts_response['error'] ) && !empty( $accounts_response['error']['code'] ) && $accounts_response['error']['code'] == 403 ) {
+		$is_permission_missing = true;
+	}
 }
 ?>
 
@@ -76,6 +87,10 @@ if ( ! empty( $data_streams['error'] ) ) {
 						$this->render_login_notice( 'insufficient_permission' );
 					}
 				}
+
+				if ( $is_permission_missing ) {
+					$this->render_login_notice( 'insufficient_permission' );
+				}
 				?>
 				</td>
 			</tr>
@@ -111,7 +126,7 @@ if ( ! empty( $data_streams['error'] ) ) {
 								$select_message = $this->accounts_result['error']['message'];
 							}
 							?>
-							<select name="account" id="" class="htga4-select-account">
+							<select name="account" id="" class="htga4-select-account" <?php echo esc_attr($is_permission_missing ? 'disabled' : ''); ?>>
 								<option value=""><?php echo esc_html( $select_message ); ?></option>
 								<?php
 								foreach ( $accounts as $account_id => $account_name ) {

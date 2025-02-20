@@ -31,11 +31,11 @@ trait Notice_Trait {
 
 		} elseif ( $notice_name === 'insufficient_permission' ) {
 
-			$message  = __( 'Our system has detected that the access permissions you granted earlier was <b>insufficient</b>. <br>Please Sign in again and make sure that you have granted access for <strong>\'See and download your Google Analytics data\'</strong> on the Google Authentication screen to display analytical reports.', 'ht-easy-ga4' );
+			$message  = __( 'To enhance your analytics experience, we need additional permissions to display your data. <br> Please Sign in again and enable <strong>\'See and download your Google Analytics data\'</strong> to unlock all reporting features.', 'ht-easy-ga4' );
 			$classes .= ' htga4-warning';
 
 			printf(
-				'<div class="%1$s"><span>%2$s</span> <span>%3$s</span> <a href="%4$s" target="_blank">%5$s</a></div>',
+				'<br><div class="%1$s"><span>%2$s</span> <span>%3$s</span> <a href="%4$s" target="_blank">%5$s</a></div>',
 				esc_attr( $classes ),
 				wp_kses_post( $icon ),
 				wp_kses_post( $message ),

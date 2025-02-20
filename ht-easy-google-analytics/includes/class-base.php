@@ -97,7 +97,14 @@ class Base {
 
 		// Generate access token after expired
 		if ( get_option( 'htga4_email' ) && ! get_transient( 'htga4_access_token' ) && $this->get_data( 'page' ) == 'ht-easy-ga4-setting-page' ) {
-			$this->generate_access_token( get_option( 'htga4_email' ) );
+			$result = $this->generate_access_token( get_option( 'htga4_email' ) );
+			if ( is_wp_error( $result ) ) {
+				add_action( 'admin_notices', function() use ($result) {
+					$class = 'notice notice-error';
+					$message = $result->get_error_message();
+					printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+				});
+			}
 		}
 
 		// Action when login & logout.
@@ -242,15 +249,5 @@ class Base {
 				return;
 			}
 		}
-	}
-
-	public function clear_data() {
-		delete_transient( 'htga4_access_token' );
-		delete_transient( 'htga4_accounts' );
-		delete_transient( 'htga4_properties' );
-		delete_transient( 'htga4_data_streams' );
-
-		delete_option( 'htga4_email' );
-		delete_option( 'htga4_sr_api_key' );
 	}
 }

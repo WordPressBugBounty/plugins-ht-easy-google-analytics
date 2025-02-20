@@ -566,4 +566,40 @@ trait Helper_Trait {
     
         return $remote_banner_data;
     }
+
+    public function clear_transients( ) {
+        $transients = [
+            'htga4_access_token',
+            'htga4_accounts',
+            'htga4_accounts_v2',
+            'htga4_properties',
+            'htga4_data_streams',
+        ];
+
+        foreach ($transients as $key) {
+            delete_transient($key);
+        }
+    }
+
+    public function clear_options(){
+        delete_option( 'htga4_email' );
+        delete_option( 'htga4_sr_api_key' );
+    }
+
+    public function clear_data() {
+        $this->clear_transients();
+        $this->clear_options();
+    }
+
+    /**
+     * Log error messages
+     *
+     * @param string $message Error message
+     * @return void
+     */
+    public function log_error($message) {
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log('HT Easy GA4 Error: ' . $message);
+        }
+    }
 }

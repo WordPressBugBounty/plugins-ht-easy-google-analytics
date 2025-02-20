@@ -6,38 +6,68 @@ use WP_Error;
 
 trait Rest_Request_Handler_Trait {
 	/**
-     * > It sends a POST request to our server endpoint with the user's email address, and if the
-     * request is successful, it returns the new access token
-     * 
-     * @param email The email address of the user to get an access token.
-     * 
-     * @return string
+     * Generates and caches an access token for the given email address.
+     *
+     * Sends a POST request to the server endpoint to generate a new access token.
+     * If successful, it caches the token using WordPress transients for 58 minutes.
+     *
+     * @param string $email The email address to generate an access token for
+     * @return string|WP_Error Access token if successful, WP_Error on failure
      */
-    function generate_access_token( $email ){
+    function generate_access_token($email) {
+        if (!is_email($email)) {
+            return new WP_Error(
+                'invalid_email',
+                __('Invalid email address provided.', 'ht-easy-ga4')
+            );
+        }
+
+        $api_key = get_option('htga4_sr_api_key');
+
         $request_url = Base::$htga4_rest_base_url . 'v1/get-access-token';
-
-        $raw_response = wp_remote_post( $request_url, array(
-            'timeout'     => 10,
-            'body'        => array(
+        $response = wp_remote_post($request_url, [
+            'timeout' => 10,
+            'body' => [
                 'email' => sanitize_email($email),
-                'key'   => get_option('htga4_sr_api_key') // The key is used to authenticate the request.
-            ),
+                'key'   => $api_key
+            ],
             'sslverify' => false,
-        ));
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ]);
 
-        // Something wrong happened on the server side.
-        $response_code = wp_remote_retrieve_response_code( $raw_response );
-        if ( is_wp_error( $raw_response ) || 200 !== $response_code ) {
-            return array();
+        if (is_wp_error($response)) {
+            return new WP_Error(
+                'request_failed',
+                sprintf(
+                    __('Failed to connect to authentication server: %s', 'ht-easy-ga4'),
+                    $response->get_error_message()
+                )
+            );
         }
 
-        $response = json_decode( wp_remote_retrieve_body( $raw_response ), true );
-
-        $access_token = '';
-        if( !empty($response['success']) && $response['success'] === true ){
-            $access_token = $response['access_token'];
-            set_transient('htga4_access_token', $access_token, (MINUTE_IN_SECONDS * 58) );
+        $response_code = wp_remote_retrieve_response_code($response);
+        if (200 !== $response_code) {
+            return new WP_Error(
+                'invalid_response',
+                sprintf(
+                    __('Server returned an invalid response code: %d', 'ht-easy-ga4'),
+                    $response_code
+                )
+            );
         }
+
+        $body = json_decode(wp_remote_retrieve_body($response), true);
+        if (!is_array($body) || empty($body['success']) || empty($body['access_token'])) {
+            return new WP_Error(
+                'invalid_response_data',
+                $body['message']
+            );
+        }
+
+        $access_token = sanitize_text_field($body['access_token']);
+        set_transient('htga4_access_token', $access_token, MINUTE_IN_SECONDS * 58);
 
         return $access_token;
     }
@@ -856,7 +886,7 @@ trait Rest_Request_Handler_Trait {
                 $year   = substr($date, 0, 4);
                 $month  = substr($date, 4, 2);
                 $day    =  substr($date, 6, 2);
-                $dateObj = date_create("$year-$month-$date");
+                $dateObj = date_create("$year-$month-$day");
 
                 $dataset['labels'][$date] = $dateObj->format('M') . ' ' . $day;
             } elseif( $state == 'previous' ){
