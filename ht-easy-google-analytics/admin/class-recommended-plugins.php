@@ -70,7 +70,7 @@ class Recommended_Plugins {
 		// Initialize properties.
 		$this->text_domain      = ! empty( $args['text_domain'] ) ? $args['text_domain'] : 'htrp';
 		$this->parent_menu_slug = ! empty( $args['parent_menu_slug'] ) ? $args['parent_menu_slug'] : 'plugins.php';
-		$this->menu_label       = ! empty( $args['menu_label'] ) ? $args['menu_label'] : esc_html__( 'Recommendations', 'ht-easy-ga4' );
+		$this->menu_label       = ! empty( $args['menu_label'] ) ? $args['menu_label'] : '';
 		$this->menu_capability  = ! empty( $args['menu_capability'] ) ? $args['menu_capability'] : 'manage_options';
 		$this->menu_page_slug   = ! empty( $args['menu_page_slug'] ) ? $args['menu_page_slug'] : $this->text_domain . '_extensions';
 		$this->priority         = ! empty( $args['priority'] ) ? $args['priority'] : 100;
@@ -92,8 +92,8 @@ class Recommended_Plugins {
 	public function admin_menu() {
 		add_submenu_page(
 			$this->parent_menu_slug,
-			$this->menu_label,
-			$this->menu_label,
+			__('Recommendations', 'ht-easy-ga4'),
+			__('Recommendations', 'ht-easy-ga4'),
 			$this->menu_capability,
 			$this->menu_page_slug,
 			array( $this, 'render_html' )
@@ -150,7 +150,10 @@ class Recommended_Plugins {
 	 */
 	public function render_html() {
 		if ( ! function_exists( 'plugins_api' ) ) {
-			include_once ABSPATH . 'wp-admin/includes/plugin-install.php'; }
+			include_once ABSPATH . 'wp-admin/includes/plugin-install.php'; 
+		}
+
+		$tabs_list = apply_filters( 'htga4_recommended_plugins_tab_list', $this->tab_list );
 
 		$htplugins_plugin_list = $this->get_plugins();
 		$palscode_plugin_list  = $this->get_plugins( 'palscode' );
@@ -190,7 +193,7 @@ class Recommended_Plugins {
 				<div class="htrp-extension-admin-tab-area wp-filter">
 					<ul class="htrp-admin-tabs filter-links">
 						<?php
-						foreach ( $this->tab_list as $tab ) {
+						foreach ( $tabs_list as $tab ) {
 							$active_class = isset( $tab['active'] ) && $tab['active'] ? 'htrp-active' : '';
 							?>
 									<li>
@@ -204,7 +207,7 @@ class Recommended_Plugins {
 
 				<?php
 					$plugins_type = '';
-				foreach ( $this->tab_list as $tab ) :
+				foreach ( $tabs_list as $tab ) :
 
 					$active_class = isset( $tab['active'] ) && $tab['active'] ? 'htrp-active' : '';
 					$plugins      = $tab['plugins'];

@@ -35,12 +35,12 @@ class Recommended_Plugins_Init{
                 'hook_suffix'       => 'ht-easy-ga4_page_ga4-recommendations'
             )
         );
-
-        $this->add_tabs($this->recommended_plugins_instance);
+        
+        add_filter( 'htga4_recommended_plugins_tab_list', array( $this, 'add_tabs' ) );
     }
 
-    public function add_tabs($recommended_plugins_instance){
-        $recommended_plugins_instance->add_new_tab( array(
+    public function add_tabs($tab_list){
+        $tab_list[] = array(
 
             'title' => esc_html__( 'Recommended', 'ht-easy-ga4' ),
             'active' => true,
@@ -130,10 +130,9 @@ class Recommended_Plugins_Init{
                     'name'      => esc_html__( 'Multi Currency', 'ht-easy-ga4' )
                 )
             )
+        );
         
-        ) );
-        
-        $recommended_plugins_instance->add_new_tab(array(
+        $tab_list[] = array(
             'title' => esc_html__( 'You May Also Like', 'ht-easy-ga4' ),
             'plugins' => array(
         
@@ -282,9 +281,9 @@ class Recommended_Plugins_Init{
                 ),
         
             )
-        ));
+        );
         
-        $recommended_plugins_instance->add_new_tab(array(
+        $tab_list[] = array(
             'title' => esc_html__( 'Others', 'ht-easy-ga4' ),
             'plugins' => array(
         
@@ -355,7 +354,9 @@ class Recommended_Plugins_Init{
                 ),
         
             )
-        ));
+        );
+        
+        return $tab_list;
     }
 }
 

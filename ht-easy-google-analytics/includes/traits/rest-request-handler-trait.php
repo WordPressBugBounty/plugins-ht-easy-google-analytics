@@ -51,10 +51,7 @@ trait Rest_Request_Handler_Trait {
         if (200 !== $response_code) {
             return new WP_Error(
                 'invalid_response',
-                sprintf(
-                    __('Server returned an invalid response code: %d', 'ht-easy-ga4'),
-                    $response_code
-                )
+                'Server returned an invalid response code' . $response_code
             );
         }
 
