@@ -83,7 +83,7 @@ if ( ! class_exists( 'Ht_Easy_Ga4_Diagnostic_Data' ) ) {
          * Constructor.
          */
         private function __construct() {
-            $this->prefix = 'htga4';
+            $this->prefix = 'ht-easy-ga4';
             $this->project_name = 'HT Easy GA4';
             $this->project_type = 'wordpress-plugin';
             $this->project_version = HT_EASY_GA4_VERSION;
@@ -478,18 +478,18 @@ if ( ! class_exists( 'Ht_Easy_Ga4_Diagnostic_Data' ) ) {
          */
         private function show_core_notice() {
             return;
-            $message_l1 = sprintf( esc_html__( 'At %2$s%1$s%3$s, we prioritize continuous improvement and compatibility. To achieve this, we gather non-sensitive diagnostic information and details about plugin usage. This includes your site\'s URL, the versions of WordPress and PHP you\'re using, and a list of your installed plugins and themes. We also require your email address to provide you with exclusive discount coupons and updates. This data collection is crucial for ensuring that %2$s%1$s%3$s remains up-to-date and compatible with the most widely-used plugins and themes. Rest assured, your privacy is our priority – no spam, guaranteed. %4$sPrivacy Policy%5$s', 'htga4' ), esc_html( $this->project_name ), '<strong>', '</strong>', '<a target="_blank" href="' . esc_url( $this->privacy_policy ) . '">', '</a>', '<h4 class="htga4-diagnostic-data-title">', '</h4>' );
+            $message_l1 = sprintf( esc_html__( 'At %2$s%1$s%3$s, we prioritize continuous improvement and compatibility. To achieve this, we gather non-sensitive diagnostic information and details about plugin usage. This includes your site\'s URL, the versions of WordPress and PHP you\'re using, and a list of your installed plugins and themes. We also require your email address to provide you with exclusive discount coupons and updates. This data collection is crucial for ensuring that %2$s%1$s%3$s remains up-to-date and compatible with the most widely-used plugins and themes. Rest assured, your privacy is our priority – no spam, guaranteed. %4$sPrivacy Policy%5$s', 'ht-easy-ga4' ), esc_html( $this->project_name ), '<strong>', '</strong>', '<a target="_blank" href="' . esc_url( $this->privacy_policy ) . '">', '</a>', '<h4 class="htga4-diagnostic-data-title">', '</h4>' );
 
-            $message_l2 = sprintf( esc_html__( 'Server information (Web server, PHP version, MySQL version), WordPress information, site name, site URL, number of plugins, number of users, your name, and email address. You can rest assured that no sensitive data will be collected or tracked. %1$sLearn more%2$s.', 'htga4' ), '<a target="_blank" href="' . esc_url( $this->privacy_policy ) . '">', '</a>' );
+            $message_l2 = sprintf( esc_html__( 'Server information (Web server, PHP version, MySQL version), WordPress information, site name, site URL, number of plugins, number of users, your name, and email address. You can rest assured that no sensitive data will be collected or tracked. %1$sLearn more%2$s.', 'ht-easy-ga4' ), '<a target="_blank" href="' . esc_url( $this->privacy_policy ) . '">', '</a>' );
 
             $nonce = wp_create_nonce( $this->prefix . '_diagnostic_data_nonce');
-            $button_text_1 = esc_html__( 'Count Me In', 'htga4' );
+            $button_text_1 = esc_html__( 'Count Me In', 'ht-easy-ga4' );
             $button_link_1 = add_query_arg( array( 
                 'htga4_diagnostic_data_agreed' => 'yes',
                 '_wpnonce' => $nonce,
             ) );
 
-            $button_text_2 = esc_html__( 'No, Thanks', 'htga4' );
+            $button_text_2 = esc_html__( 'No, Thanks', 'ht-easy-ga4' );
             $button_link_2 = add_query_arg( array( 
                 'htga4_diagnostic_data_agreed' => 'no',
                 '_wpnonce' => $nonce,
@@ -501,7 +501,7 @@ if ( ! class_exists( 'Ht_Easy_Ga4_Diagnostic_Data' ) ) {
             ob_start();
             ?>
             <div class="htga4-diagnostic-data-notice">
-                <h4 class="htga4-diagnostic-data-title"><?php echo sprintf( esc_html__('🌟 Enhance Your %1$s Experience as a Valued Contributor!','htga4'), esc_html( $this->project_name )); ?></h4>
+                <h4 class="htga4-diagnostic-data-title"><?php echo sprintf( esc_html__('🌟 Enhance Your %1$s Experience as a Valued Contributor!','ht-easy-ga4'), esc_html( $this->project_name )); ?></h4>
                 <p class="htga4-diagnostic-data-message"><?php echo wp_kses_post( $message_l1 ); ?></p>
                 <p class="htga4-diagnostic-data-list"><?php echo wp_kses_post( $message_l2 ); ?></p>
                 <p class="htga4-diagnostic-data-buttons">

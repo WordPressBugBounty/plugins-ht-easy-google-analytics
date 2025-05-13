@@ -1,0 +1,19 @@
+{
+  "_element-plus.js": {
+    "file": "element-plus.js",
+    "name": "element-plus"
+  },
+  "src/vue-settings/main.js": {
+    "file": "main.js",
+    "name": "main",
+    "src": "src/vue-settings/main.js",
+    "isEntry": true,
+    "imports": [
+      "_element-plus.js"
+    ]
+  },
+  "style.css": {
+    "file": "style.css",
+    "src": "style.css"
+  }
+}

@@ -1,13 +1,8 @@
 <?php
 namespace Ht_Easy_Ga4;
 
-use Ht_Easy_Ga4\Admin\Tabs\Standard_Reports;
-use Ht_Easy_Ga4\Admin\Tabs\Ecommerce_Reports;
-use Ht_Easy_Ga4\Admin\Tabs\Realtime_Reports;
-
 class Base {
-	use \Ht_Easy_Ga4\Helper_Trait; 
-	use \Ht_Easy_Ga4\Rest_Request_Handler_Trait;
+	use \Ht_Easy_Ga4\Helper_Trait;
 
 	/**
 	 * [$_instance]
@@ -28,34 +23,7 @@ class Base {
 		return self::$_instance;
 	}
 
-	/**
-	 * Standard_Reports instance.
-	 *
-	 * @return Standard_Reports
-	 */
-	public $standard_reports;
-
-	/**
-	 * Ecommerce_Reports instance.
-	 *
-	 * @return Ecommerce_Reports
-	 */
-	public $ecommerce_reports;
-
-	/**
-	 * Realtime_Reports instance.
-	 *
-	 * @return Realtime_Reports
-	 */
-	public $realtime_reports;
-
-	public $response_message;
-
-	public static $htga4_rest_base_url = '';
-
 	public function __construct() {
-		self::$htga4_rest_base_url = $this->get_config('redirect_uris') . '/index.php?rest_route=/htga4/';
-
 		// Load text domain.
 		add_action( 'init', array( $this, 'i18n' ) );
 
@@ -95,18 +63,6 @@ class Base {
 			}
 		});
 
-		// Generate access token after expired
-		if ( get_option( 'htga4_email' ) && ! get_transient( 'htga4_access_token' ) && $this->get_data( 'page' ) == 'ht-easy-ga4-setting-page' ) {
-			$result = $this->generate_access_token( get_option( 'htga4_email' ) );
-			if ( is_wp_error( $result ) ) {
-				add_action( 'admin_notices', function() use ($result) {
-					$class = 'notice notice-error';
-					$message = $result->get_error_message();
-					printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
-				});
-			}
-		}
-
 		// Action when login & logout.
 		add_action( 'admin_init', array( $this, 'login' ) );
 		add_action( 'admin_init', array( $this, 'logout' ) );
@@ -130,20 +86,8 @@ class Base {
 	}
 
 	public function includes() {
-		require_once HT_EASY_GA4_PATH . 'includes/class-manage-assets.php';
-		require_once HT_EASY_GA4_PATH . 'includes/class-ajax-actions.php';
-
 		require_once HT_EASY_GA4_PATH . 'admin/class-admin.php';
-		require_once HT_EASY_GA4_PATH . 'admin/tabs/class-general-options.php';
-		require_once HT_EASY_GA4_PATH . 'admin/tabs/class-events-tracking.php';
-		require_once HT_EASY_GA4_PATH . 'admin/tabs/class-standard-reports.php';
-		$this->standard_reports = Standard_Reports::instance();
-		
-		require_once HT_EASY_GA4_PATH . 'admin/tabs/class-ecommerce-reports.php';
-		$this->ecommerce_reports = Ecommerce_Reports::instance();
-
-		require_once HT_EASY_GA4_PATH . 'admin/tabs/class-realtime-reports.php';
-		$this->realtime_reports = Realtime_Reports::instance();
+		require_once HT_EASY_GA4_PATH . 'admin/class-menu.php';
 
 		require_once HT_EASY_GA4_PATH . 'admin/class-recommended-plugins.php';
 		require_once HT_EASY_GA4_PATH . 'admin/class-recommended-plugins-init.php';
@@ -186,10 +130,11 @@ class Base {
 			$this->clear_data();
 
 			// Delete access_token & email.
-			delete_option( 'ht_easy_ga4_options' );
+			// We should not delete because it has other settings like events
+			// delete_option( 'ht_easy_ga4_options' );
 
 			$response = wp_remote_post(
-				self::$htga4_rest_base_url . 'v1/delete-data',
+				htga4_get_api_url('v1/delete-data'),
 				array(
 					'timeout'   => 20,
 					'body'      => array(
@@ -206,47 +151,12 @@ class Base {
 				if ( ! empty( $response_body['success'] ) ) {
 					delete_option( 'htga4_email' );
 
-					wp_safe_redirect( $this->get_current_admin_url() );
+					$current_admin_url = $this->get_current_admin_url();
+					// Remove htga4_logout from URL.
+					$current_admin_url = remove_query_arg( 'htga4_logout', $current_admin_url );
+					wp_safe_redirect( $current_admin_url );
 					return;
 				}
-			}
-
-			// if the response is WP_Error.
-			if ( is_wp_error( $response ) ) {
-				$this->response_message = $response->get_error_message();
-
-				add_action(
-					'admin_notices',
-					function() {
-						?>
-					<div class="notice notice-error is-dismissible">
-						<p><?php echo esc_html__( 'Something went wrong: ', 'ht-easy-ga4' ) . wp_kses_post( $this->response_message ); ?></p>
-					</div>
-						<?php
-					}
-				);
-
-				return;
-			}
-
-			$response_body = json_decode( $response['body'], true );
-
-			// Record not found.
-			if ( ! empty( $response_body['message'] ) ) {
-				$this->response_message = $response_body['message'];
-
-				add_action(
-					'admin_notices',
-					function() {
-						?>
-					<div class="notice notice-error is-dismissible">
-						<p><?php echo esc_html__( 'Something went wrong: ', 'ht-easy-ga4' ) . wp_kses_post( $this->response_message ); ?></p>
-					</div>
-						<?php
-					}
-				);
-
-				return;
 			}
 		}
 	}

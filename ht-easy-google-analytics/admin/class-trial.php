@@ -61,7 +61,7 @@ if ( ! class_exists( 'Ht_Easy_Ga4_Trial' ) ) {
         public function __construct() {
             $this->includes();
 
-            $this->prefix = 'htga4';
+            $this->prefix = 'ht-easy-ga4';
             $this->pro_file = 'ht-easy-google-analytics-pro/ht-easy-google-analytics-pro.php';
             $this->data_center = 'http://feed.hasthemes.com/ht-easy-ga4/tw/';
             $this->initial_page = admin_url( 'admin.php?page=ht-easy-ga4-setting-page' );

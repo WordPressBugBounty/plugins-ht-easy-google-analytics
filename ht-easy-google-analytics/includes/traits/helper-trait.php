@@ -4,9 +4,6 @@
  */
 namespace Ht_Easy_Ga4;
 
-use Exception;
-use WP_Error;
-
 trait Helper_Trait {
 	/**
     * File path of the Core plugin
@@ -572,8 +569,13 @@ trait Helper_Trait {
             'htga4_access_token',
             'htga4_accounts',
             'htga4_accounts_v2',
+            'htga4_accounts_v3',
             'htga4_properties',
+            'htga4_properties_v2',
+            'htga4_properties_v3',
             'htga4_data_streams',
+            'htga4_data_streams_v2',
+            'htga4_data_streams_v3',
         ];
 
         foreach ($transients as $key) {

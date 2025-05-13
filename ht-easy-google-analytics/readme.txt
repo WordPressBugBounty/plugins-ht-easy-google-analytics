@@ -3,7 +3,7 @@ Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, tarekht
 Tags: google, analytics, google analytics, google analytics plugin, ga4, ga, google analytics dashboard, google analytics widget, WordPress analytics, web analytics, ecommerce
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.3.0
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ HT Easy GA4 - Google Analytics WordPress Plugin enables tracking user behavior a
 HT Easy GA4 - Google Analytics 4 WordPress plugin is a great option for those in search of the best Google Analytics WordPress plugin for WordPress website traffic analytics. This easy-to-use and intuitive Google Analytics plugin for WordPress enables you to link your WordPress site with Google Analytics 4 with a few clicks and get complete analytics for WordPress site.
 The plugin developed by the HasThemes team can be pretty useful if you are a user of [Google Analytics 4](https://support.google.com/analytics/answer/10089681), also known as GA4.  
 
-`[youtube https://www.youtube.com/watch?v=AreAbEZD5I0]`
+`[youtube https://www.youtube.com/watch?v=AreAbEZD5I0]` 
 
 In the past, it was a little complicated to combine website and mobile app usage data using the older Google Analytics tools. The only way it was possible was by using separate Google Analytics property. With the latest Google Analytics 4 version, you will get more advantages over the older Universal Analytics tool in terms of web analytics.
 
@@ -188,6 +188,11 @@ Needs assistance to use this plugin?
 Feel free to [Contact us](https://hasthemes.com/contact-us/)
 
 == Changelog ==
+= Version: 1.3.2 - Date: 13 May 2025 =
+* Updated: Enhanced UI of plugin settings and reports
+* Fixed: Some issue of the reporting api
+* Tweak: Unnecessary files were not removed
+
 = Version: 1.3.0 - Date: 20 Apr 2025 =
 * Fixed: Text domain loading issue
 * Compatibility with WordPress 6.8
@@ -310,7 +315,7 @@ This section describes how to install the HT Easy GA4 Plugin for WordPress get i
 
 == Screenshots ==
 1. Standard Reports
-2. eCommerce Reports
-3. Dashboard Settings Panel with Option to Login with Google
-4. Choose Account, Property & Measurement ID
-5. Script load in frontend
+2. eCommerce Reports (available in Pro version)
+3. Real-time Reports (available in Pro version)
+4. Dashboard Settings Panel with Option to Login with Google
+5. Events tracking (available in Pro version)
