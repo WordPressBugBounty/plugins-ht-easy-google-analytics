@@ -53,6 +53,17 @@ class Settings_REST_API {
                 'permission_callback' => array($this, 'check_permission'),
             )
         );
+        
+        // Tools endpoints for cache management
+        register_rest_route(
+            'htga4/v1',
+            '/tools/clear-cache',
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array($this, 'clear_cache'),
+                'permission_callback' => array($this, 'check_permission'),
+            )
+        );
     }
 
     /**
@@ -134,5 +145,75 @@ class Settings_REST_API {
             }
         }
         return $sanitized_array;
+    }
+    
+    /**
+     * Clear all cached data
+     * 
+     * @param WP_REST_Request $request The REST request object
+     * @return WP_REST_Response The response
+     */
+    public function clear_cache($request) {
+        global $wpdb;
+        $cleared_keys = [];
+        $cleared_count = 0;
+        
+        // Define patterns to match GA4 transients
+        $transient_patterns = [
+            '_transient_htga4_standard_report_%',
+            '_transient_htga4_ecommerce_report_%',
+            '_transient_htga4_realtime_report',
+            '_transient_htga4_accounts_v3',
+            '_transient_htga4_properties_v3',
+            '_transient_htga4_datastreams_v3',
+            '_transient_htga4_userinfo',
+            '_transient_htga4_data_stream_%'
+        ];
+        
+        try {
+            // Process each pattern and delete matching transients
+            foreach ($transient_patterns as $pattern) {
+                // Get transient option names matching the pattern
+                $transients = $wpdb->get_results(
+                    $wpdb->prepare(
+                        "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+                        $pattern
+                    )
+                );
+                
+                if (!empty($transients)) {
+                    foreach ($transients as $transient) {
+                        $transient_name = str_replace('_transient_', '', $transient->option_name);
+                        
+                        // Delete the transient
+                        if (delete_transient($transient_name)) {
+                            $cleared_keys[] = $transient_name;
+                            $cleared_count++;
+                        }
+                    }
+                }
+            }
+            
+            return rest_ensure_response([
+                'success' => true,
+                'message' => sprintf(
+                    __('Successfully cleared %d cache entries.', 'ht-easy-ga4'),
+                    $cleared_count
+                ),
+                'cleared_count' => $cleared_count,
+                'cleared_keys' => $cleared_keys,
+                'timestamp' => current_time('mysql')
+            ]);
+            
+        } catch (\Exception $e) {
+            return rest_ensure_response([
+                'success' => false,
+                'message' => sprintf(
+                    __('Error clearing cache: %s', 'ht-easy-ga4'),
+                    $e->getMessage()
+                ),
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

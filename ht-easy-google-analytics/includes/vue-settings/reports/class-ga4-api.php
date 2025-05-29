@@ -857,7 +857,12 @@ class GA4_API {
         }
         
         // If not cached or force refresh requested, fetch from API
-        $request_url = 'https://analyticsadmin.googleapis.com/v1beta/accounts';
+        $page_size = 50;
+        
+        // Filter hook to allow modification of the page size
+        $page_size = apply_filters('htga4_accounts_page_size', $page_size);
+
+        $request_url = 'https://analyticsadmin.googleapis.com/v1beta/accounts?pageSize=' . $page_size;
         $request_args = [
             'timeout'   => 20,
             'headers'   => [

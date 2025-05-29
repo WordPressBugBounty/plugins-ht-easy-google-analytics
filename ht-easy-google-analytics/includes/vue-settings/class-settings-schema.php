@@ -12,6 +12,9 @@ class Settings_Schema {
 
             // Events Tracking
             require __DIR__ . '/schema-parts/events-tracking.php',
+
+            // Tools
+            require __DIR__ . '/schema-parts/tools.php',
         );
     }
 }

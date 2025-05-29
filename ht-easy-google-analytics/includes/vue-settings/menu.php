@@ -7,5 +7,9 @@ return [
     'events-tracking' => [
         'title' => __('Events Tracking', 'ht-easy-ga4'),
         'icon' => 'Setting'
+    ],
+    'tools' => [
+        'title' => __('Tools', 'ht-easy-ga4'),
+        'icon' => 'Tools'
     ]
 ];
