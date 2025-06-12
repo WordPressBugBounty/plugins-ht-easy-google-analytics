@@ -3,7 +3,7 @@ Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, tarekht
 Tags: google, analytics, google analytics, google analytics plugin, ga4, ga, google analytics dashboard, google analytics widget, WordPress analytics, web analytics, ecommerce
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -188,6 +188,10 @@ Needs assistance to use this plugin?
 Feel free to [Contact us](https://hasthemes.com/contact-us/)
 
 == Changelog ==
+= Version: 1.4.1 - Date: 12 June 2025 =
+* Fixed: WooCommerce dependency issue
+* Fixed: Cache busting issue for element-plus
+
 = Version: 1.4.0 - Date: 29 May 2025 =
 * Fixed: Property and Data stream was not changing properly
 * Added: Filter hook htga4_accounts_page_size for accounts page size increase

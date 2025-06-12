@@ -19,6 +19,13 @@ return ['events-tracking_route' => [
     ],
 
     'fields' => [
+        // WooCommerce requirement notice
+        'woocommerce_requirement_notice' => [
+            'id' => 'woocommerce_requirement_notice',
+            'section' => 'e-commerce-events',
+            'type' => 'woocommerce_requirement',
+        ],
+        
         // E-Commerce Events
         'enable_ecommerce_events' => [
             'id' => 'enable_ecommerce_events',

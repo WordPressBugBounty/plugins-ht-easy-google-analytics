@@ -74,6 +74,15 @@ trait Helper_Trait {
 		return false;
 	}
 
+    public function is_woocommerce_installed(){
+        $plugins = get_plugins();
+        if( isset( $plugins[ $this->get_woocommerce_file() ]) ){
+            return true;
+        }
+
+        return false;
+    }
+
     public function htga4_clean( $data ){
         if( is_array($data) ){
             foreach( $data as $key => $value ){

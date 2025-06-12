@@ -177,6 +177,8 @@ class Settings_Page {
 
             'isProInstalled' => $this->is_pro_plugin_installed(),
             'isProActive' => $this->is_pro_plugin_active(),
+            'isWoocommerceActive' => $this->is_woocommerce_active(),
+            'isWoocommerceInstalled' => $this->is_woocommerce_installed(),
 
             // Plugins Settings
             'globalSettings' => array(
