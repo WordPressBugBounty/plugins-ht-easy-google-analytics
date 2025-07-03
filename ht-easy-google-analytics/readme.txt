@@ -3,7 +3,7 @@ Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, tarekht
 Tags: google, analytics, google analytics, google analytics plugin, ga4, ga, google analytics dashboard, google analytics widget, WordPress analytics, web analytics, ecommerce
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,7 @@ HT Easy GA4 is an exceptional Google Analytics 4  WordPress plugin that brings a
     * Device Types
 - 👉 Generate and View Reports for a Custom Period of Time
 - 👉 Compare Chart Reports With Previous Periods of Time
+- 👉 GDPR Cookie Notice
 - 👉 WooCommerce Integration (Pro)
 - 👉 Exclude Administrators from being tracked
 - 👉 Exclude Custom User Roles from being tracked (Pro)
@@ -188,6 +189,10 @@ Needs assistance to use this plugin?
 Feel free to [Contact us](https://hasthemes.com/contact-us/)
 
 == Changelog ==
+= Version: 1.5.0 - Date: 03 Jul 2025 =
+* Added: Added cookie consent notice feature
+* Updated: Language translation file
+
 = Version: 1.4.1 - Date: 12 June 2025 =
 * Fixed: WooCommerce dependency issue
 * Fixed: Cache busting issue for element-plus
@@ -326,5 +331,8 @@ This section describes how to install the HT Easy GA4 Plugin for WordPress get i
 1. Standard Reports
 2. eCommerce Reports (available in Pro version)
 3. Real-time Reports (available in Pro version)
-4. Dashboard Settings Panel with Option to Login with Google
-5. Events tracking (available in Pro version)
+4. Tracking Code Added to the Website
+5. Dashboard Settings Panel with Option to Login with Google
+6. Events tracking (available in Pro version)
+7. GDPR Cookie Notice
+8. Option to clear cache

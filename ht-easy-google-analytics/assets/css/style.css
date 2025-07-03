@@ -1,0 +1,85 @@
+/*
+Shared styles for both admin and frontend.
+
+Table of contents:
+==================
+1. Notice
+*/
+
+/* 1. Notice
+================================================== */
+.htga4-cookie-notice {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--wp-color-gray-0);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    font-family: inherit;
+}
+
+.htga4-cookie-notice__content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.htga4-cookie-notice__text-section {
+    flex: 1 1 auto;
+    min-width: 0; /* Prevents flex item from overflowing */
+}
+
+.htga4-cookie-notice__text {
+    color: var(--wp-color-gray-80);
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.htga4-cookie-notice__link {
+    color: var(--wp-color-blue-50);
+    text-decoration: underline;
+}
+
+.htga4-cookie-notice__actions {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.htga4-cookie-notice__button {
+    background-color: var(--wp-color-blue-50);
+    color: var(--wp-color-white);
+    border: none;
+    padding: 5px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    flex: 0 0 auto;
+    margin-top: 10px;
+}
+
+.htga4-cookie-decline {
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--wp-color-gray-80); 
+}
+
+@media (min-width: 600px) {
+    .htga4-cookie-notice__button {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .htga4-cookie-notice__content {
+        flex-direction: column;
+    }
+}

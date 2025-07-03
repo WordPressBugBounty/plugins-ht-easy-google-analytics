@@ -13,6 +13,9 @@ class Settings_Schema {
             // Events Tracking
             require __DIR__ . '/schema-parts/events-tracking.php',
 
+            // Cookie Notice
+            require __DIR__ . '/schema-parts/cookie-notice.php',
+
             // Tools
             require __DIR__ . '/schema-parts/tools.php',
         );

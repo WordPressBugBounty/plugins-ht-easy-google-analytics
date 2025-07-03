@@ -180,3 +180,32 @@ if( !function_exists('htga4_get_access_token') ){
         return get_transient('htga4_access_token');
     }
 }
+
+
+/**
+ * This function retrieves a specific option value from the 'ht_easy_ga4_options' array or returns
+ * a default value if the option is not set.
+ * 
+ * @param option_name The name of the option to retrieve from the options array.
+ * @param default The default value to return if the option is not set or does not exist.
+ * 
+ * @return string|array
+ */
+function htga4_get_option( $option_name = '', $default = null ) {
+    $options = get_option( 'ht_easy_ga4_options' );
+    // Look into the updated options first
+    if( isset( $options[$option_name] ) ){
+
+        return $options[$option_name];
+
+    } elseif( get_option('ht_easy_ga4_id') ) {
+
+        // If not found in the updated options, look into the old options
+        return get_option('ht_easy_ga4_id');
+
+    } else {
+        return $default;
+    }
+
+    return $default;
+}

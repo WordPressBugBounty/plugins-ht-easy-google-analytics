@@ -1,0 +1,70 @@
+:root {
+    --wp-color-white: #fff;
+    --wp-color-black: #000;
+
+    --wp-color-gray-0: #f6f7f7;
+    --wp-color-gray-2: #f0f0f1;
+    --wp-color-gray-5: #dcdcde;
+    --wp-color-gray-10: #c3c4c7;
+    --wp-color-gray-20: #a7aaad;
+    --wp-color-gray-30: #8c8f94;
+    --wp-color-gray-40: #787c82;
+    --wp-color-gray-50: #646970;
+    --wp-color-gray-60: #50575e;
+    --wp-color-gray-70: #3c434a;
+    --wp-color-gray-80: #2c3338;
+    --wp-color-gray-90: #1d2327;
+    --wp-color-gray-100: #101517;
+
+    --wp-color-blue-0: #f0f6fc;
+    --wp-color-blue-5: #c5d9ed;
+    --wp-color-blue-10: #9ec2e6;
+    --wp-color-blue-20: #72aee6;
+    --wp-color-blue-30: #4f94d4;
+    --wp-color-blue-40: #3582c4;
+    --wp-color-blue-50: #2271b1;
+    --wp-color-blue-60: #135e96;
+    --wp-color-blue-70: #0a4b78;
+    --wp-color-blue-80: #043959;
+    --wp-color-blue-90: #01263a;
+    --wp-color-blue-100: #00131c;
+
+    --wp-color-red-0: #fcf0f1;
+    --wp-color-red-5: #facfd2;
+    --wp-color-red-10: #ffabaf;
+    --wp-color-red-20: #ff8085;
+    --wp-color-red-30: #f86368;
+    --wp-color-red-40: #e65054;
+    --wp-color-red-50: #d63638;
+    --wp-color-red-60: #b32d2e;
+    --wp-color-red-70: #8a2424;
+    --wp-color-red-80: #691c1c;
+    --wp-color-red-90: #451313;
+    --wp-color-red-100: #240a0a;
+
+    --wp-color-yellow-0: #fcf9e8;
+    --wp-color-yellow-5: #f5e6ab;
+    --wp-color-yellow-10: #f2d675;
+    --wp-color-yellow-20: #f0c33c;
+    --wp-color-yellow-30: #dba617;
+    --wp-color-yellow-40: #bd8600;
+    --wp-color-yellow-50: #996800;
+    --wp-color-yellow-60: #755100;
+    --wp-color-yellow-70: #614200;
+    --wp-color-yellow-80: #4a3200;
+    --wp-color-yellow-90: #362400;
+    --wp-color-yellow-100: #211600;
+
+    --wp-color-green-0: #edfaef;
+    --wp-color-green-5: #b8e6bf;
+    --wp-color-green-10: #68de7c;
+    --wp-color-green-20: #1ed14b;
+    --wp-color-green-30: #00ba37;
+    --wp-color-green-40: #00a32a;
+    --wp-color-green-50: #008a20;
+    --wp-color-green-60: #007017;
+    --wp-color-green-70: #005c12;
+    --wp-color-green-80: #00450c;
+    --wp-color-green-90: #003008;
+    --wp-color-green-100: #001c05;
+}

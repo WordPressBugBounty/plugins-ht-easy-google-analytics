@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HT Easy GA4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-29 11:43+0000\n"
+"POT-Creation-Date: 2025-06-30 11:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,48 +13,895 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.5.0; wp-5.5.3\n"
+"X-Loco-Version: 2.8.0; wp-6.8.1; php-8.0.30\n"
 "X-Domain: ht-easy-ga4"
 
-#: admin/admin-init.php:44
-msgid "Google Analytics 4 Measurement ID : "
+#: includes/vue-settings/schema-parts/cookie-notice.php:83
+msgid "Accept"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:145
+msgid "Accept Button Background Color"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:82
+msgid "Accept Button Text"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:152
+msgid "Accept Button Text Color"
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:837
+#: includes/vue-settings/reports/class-ga4-api.php:940
+#: includes/vue-settings/reports/class-ga4-api.php:1014
+msgid "Access token is missing!"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:253
+msgid "Activate"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:133
+#: admin/class-recommended-plugins.php:264
+msgid "Activated"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:132
+msgid "Activating.."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:73
+msgid "Add to Cart"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:48
+msgid "All Region"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:163
+msgid ""
+"Are you getting frustrated with WooCommerce’s current way of presenting the "
+"variants for your products? Well, say goodbye to dropdowns and start showing "
+"the product variations in a whole new light with Swatchly."
+msgstr ""
+
+#: admin/class-diagnostic-data.php:481
+#, php-format
+msgid ""
+"At %2$s%1$s%3$s, we prioritize continuous improvement and compatibility. To "
+"achieve this, we gather non-sensitive diagnostic information and details "
+"about plugin usage. This includes your site's URL, the versions of WordPress "
+"and PHP you're using, and a list of your installed plugins and themes. We "
+"also require your email address to provide you with exclusive discount "
+"coupons and updates. This data collection is crucial for ensuring that "
+"%2$s%1$s%3$s remains up-to-date and compatible with the most widely-used "
+"plugins and themes. Rest assured, your privacy is our priority – no spam, "
+"guaranteed. %4$sPrivacy Policy%5$s"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:17
+msgid "Audio Events"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:11
+msgid "Authentication with Google"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:129
+#: admin/class-recommended-plugins.php:241
+#: admin/class-recommended-plugins.php:295
+msgid "Buy Now"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:281
+msgid "By "
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:122
+msgid "Changing this will re-show the notice to all visitors."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:26
+msgid "Choose account from your Google Analytics account"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:15
+msgid "Color Setup"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:13
+msgid "Connect your Google Analytics account to start tracking & view reports."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:98
+msgid "Consent Duration"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:199
+msgid ""
+"Contact Form7 Extensions plugin is a fantastic WordPress plugin that "
+"enriches the functionalities of Contact Form 7.This all-in-one WordPress "
+"plugin will help you turn any contact page into a well-organized, engaging "
+"tool for communicating with your website visitors by providing tons of "
+"advanced features like drag and drop file upload, repeater field, trigger "
+"error for already submitted forms, popup form response, country flags and "
+"dial codes with a telephone input field and acceptance field, etc. in "
+"addition to its basic features."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:11
+msgid "Content Setup"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:121
+msgid "Cookie Key Name"
+msgstr ""
+
+#: admin/class-diagnostic-data.php:486
+msgid "Count Me In"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:341
+msgid "Coupon Zen"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:101
+msgid "Custom duration"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:53
+msgid "Data Stream"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:335
+msgid "DataCaptia"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:90
+msgid "Decline"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:159
+msgid "Decline Button Background Color"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:89
+msgid "Decline Button Text"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:166
+msgid "Decline Button Text Color"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:7
+msgid "Display Setup"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:46
+msgid "Display This Notice on"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:277
+msgid "Docus Pro"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:329
+msgid "Docus – YouTube Video Playlist"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:109
+msgid "Duration (in days)"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:11
+msgid "E-Commerce Events"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:68
+msgid "e.g: https://example.com/privacy-policy"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:280
+msgid ""
+"Embedding a YouTube playlist into your website plays a vital role to curate "
+"your content into several categories and make your web content more engaging "
+"and popular by keeping the visitors on your website for a longer period."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:34
+msgid "Enable E-commerce Events"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:24
+msgid "Enable GDPR Notice"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:26
+msgid "Enable GDPR notice on your website."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:62
+msgid "End date for filtering (YYYY-MM-DD format)"
+msgstr ""
+
+#: includes/vue-settings/class-settings-page.php:174
+msgid "Error"
+msgstr ""
+
+#: includes/vue-settings/class-settings-rest-api.php:212
+#, php-format
+msgid "Error clearing cache: %s"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:49
+msgid "EU Only"
+msgstr ""
+
+#: includes/vue-settings/menu.php:7
+#: includes/vue-settings/schema-parts/events-tracking.php:7
+msgid "Events Tracking"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:80
+msgid "Exclude Tracking For"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:82
+msgid "Extensions For CF7"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:196
+msgid "Extensions For CF7 Pro"
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:725
+#, php-format
+msgid "Failed to connect to authentication server: %s"
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:301
+msgid ""
+"Failed to retrieve access token. Please check your authentication settings."
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:305
+msgid "Faster YouTube Embed"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:74
+msgid "Fire the Add To Cart event when a visitor adds a product to their cart."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:90
+msgid "Fire the Initiate Checkout event when a user starts checkout."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:106
+msgid "Fire the Purchase event when a visitor completes a purchase."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:42
+msgid ""
+"Fire the View Item event when a visitor views a content (e.g. when a visitor "
+"visits a product details page)."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:58
+msgid ""
+"Fire the View Item List event when a visitor views a category or archive "
+"page."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:74
+#: includes/vue-settings/reports/class-ga4-api.php:254
+#: includes/vue-settings/reports/class-ga4-api.php:279
+msgid "Force refresh data by clearing transient cache"
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:248
+msgid "GA4 Account ID"
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:114
+msgid "GA4 Data Stream ID"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:67
+msgid "GA4 Measurement / Tracking ID"
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:106
+#: includes/vue-settings/reports/class-ga4-api.php:273
+msgid "GA4 Property ID"
+msgstr ""
+
+#: includes/vue-settings/menu.php:10
+#: includes/vue-settings/schema-parts/cookie-notice.php:3
+msgid "GDPR Notice"
+msgstr ""
+
+#: includes/vue-settings/menu.php:4
+msgid "General"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:3
+msgid "General Options"
+msgstr ""
+
+#: includes/vue-settings/class-settings-page.php:172
+msgid "General Settings"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:250
+msgid "Google Place Review"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:64
+msgid "HashBar"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:208
+msgid ""
+"HashBar is a WordPress Notification / Alert / Offer Bar plugin which allows "
+"you to create unlimited notification bars to notify your customers. This "
+"plugin has option to show email subscription form (sometimes it increases up "
+"to 500% email subscriber), Offer text and buttons about your promotions. "
+"This plugin has the options to add unlimited background colors and images to "
+"make your notification bar more professional."
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:205
+msgid "HashBar Pro"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:238
+msgid "HasTheme"
 msgstr ""
 
 #. Author of the plugin
 msgid "HasThemes"
 msgstr ""
 
+#: admin/class-recommended-plugins-init.php:268
+msgid "HT Click To Call"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:76
+msgid "HT Contact Form 7"
+msgstr ""
+
 #. Name of the plugin
-#: admin/admin-init.php:17 admin/admin-init.php:18
+#: admin/class-menu.php:56 admin/class-menu.php:57
 msgid "HT Easy GA4"
 msgstr ""
 
-#: admin/admin-init.php:33
-msgid "HT Easy GA4 Option"
+#: admin/class-recommended-plugins-init.php:299
+msgid "HT Feed"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:58
+msgid "HT Mega"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:151
+msgid "HT Mega Pro"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:94
+msgid "HT Menu"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:232
+msgid "HT Menu Pro"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:100
+msgid "HT Script"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:223
+msgid "HT Script Pro"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:70
+msgid "HT Slider For Elementor"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:241
+msgid "HT Slider Pro For Elementor"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:244
+msgid ""
+"HT Slider Pro is a plugin to create a slider for WordPress websites easily "
+"using the Elementor page builder. 80+ prebuild slides/templates are included "
+"in this plugin. There is the option to create a post slider, WooCommerce "
+"product slider, Video slider, image slider, etc. Fullscreen, full width and "
+"box layout option are included."
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:353
+msgid "HT Social Share"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:88
+msgid "HT WPForms"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:271
+msgid ""
+"HT – Click to Call is a lightweight WordPress plugin that allows you to add "
+"a floating click to call button on your website. It will offer your website "
+"visitors an opportunity to call your business immediately at the right "
+"moment, especially when they are interested in your products or services and "
+"seeking more information."
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:154
+msgid ""
+"HTMega is an absolute addon for elementor that includes 80+ elements & 360 "
+"Blocks with unlimited variations. HT Mega brings limitless possibilities. "
+"Embellish your site with the elements of HT Mega."
 msgstr ""
 
 #. Author URI of the plugin
 msgid "https://hasthemes.com/"
 msgstr ""
 
-#: admin/admin-init.php:70
+#: admin/class-recommended-plugins-init.php:253
 msgid ""
-"Please Enter a Valid Measurement ID. Google Analytics 4 Measurement ID Field "
-"is Empty."
+"If you are searching for a modern and excellent google places review "
+"WordPress plugin to showcase reviews from Google Maps and strengthen trust "
+"between you and your site visitors, look no further than HT Google Place "
+"Review"
 msgstr ""
 
-#: admin/admin-init.php:47
-msgid "Sample Measurement ID:  G-08F1MTVENK"
+#: includes/vue-settings/schema-parts/events-tracking.php:89
+msgid "Initiate Checkout"
 msgstr ""
 
-#: includes/class.ht-easy-ga4.php:45
+#: admin/class-recommended-plugins-init.php:226
+msgid ""
+"Insert Headers and Footers Code allows you to insert Google Analytics, "
+"Facebook Pixel, custom CSS, custom HTML, JavaScript code to your website "
+"header and footer without modifying your theme code.This plugin has the "
+"option to add any custom code to your theme in one place, no need to edit "
+"the theme code. It will save your time and remove the hassle for the theme "
+"update."
+msgstr ""
+
+#: admin/class-recommended-plugins.php:259
+msgid "Install Now"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:131
+msgid "Installing.."
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:124
+msgid "JustTables"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:181
+msgid ""
+"JustTables is an incredible WordPress plugin that lets you showcase all your "
+"WooCommerce products in a sortable and filterable table view. It allows your "
+"customers to easily navigate through different attributes of the products "
+"and compare them on a single page. This plugin will be of great help if you "
+"are looking for an easy solution that increases the chances of landing a "
+"sale on your online store."
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:178
+msgid "JustTables Pro"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:174
+msgid "Link Color"
+msgstr ""
+
+#: includes/vue-settings/class-settings-page.php:173
+msgid "Loading..."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:15
+#, php-format
+msgid "Logout (%s)"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:68
+msgid "Manually add the GA4 Tracking / Measurement ID here."
+msgstr ""
+
+#: includes/vue-settings/reports/class-standard-reports.php:205
+#: includes/vue-settings/reports/class-realtime-reports.php:207
+#: includes/vue-settings/reports/class-ecommerce-reports.php:244
+msgid "Missing property ID or access token"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:302
+msgid "More Details"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:130
+msgid "Multi Currency"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:187
+msgid "Multi Currency Pro for WooCommerce"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:190
+msgid ""
+"Multi-Currency Pro for WooCommerce is a prominent currency switcher plugin "
+"for WooCommerce. This plugin allows your website or online store visitors to "
+"switch to their preferred currency or their country’s currency."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:100
+msgid "No expiry"
+msgstr ""
+
+#: admin/class-diagnostic-data.php:492
+msgid "No, Thanks"
+msgstr ""
+
+#: includes/vue-settings/class-settings-rest-api.php:89
+#: includes/vue-settings/reports/class-ga4-api.php:458
+msgid "Nonce verification failed."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:131
+msgid "Notice Background Color"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:60
+msgid "Notice Text"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:138
+msgid "Notice Text Color"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:287
+msgid "Others"
+msgstr ""
+
+#: includes/vue-settings/class-settings-page.php:153
+msgid ""
+"Our free version is great, but it doesn't have all our advanced features. "
+"The best way to unlock all of the features in our plugin is by purchasing "
+"the pro version."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:31
+msgid "Overlay GDPR Notice on Page Content"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:418
+msgid "Plugin Not Found"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:438
+msgid "Plugin Successfully Activated"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:130
+msgid "Preview"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:317
+msgid "Preview Link Generator"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:76
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:173
+msgid "Privacy Policy Link Color"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:75
+msgid "Privacy Policy Link text"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:67
+msgid "Privacy Policy URL"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:160
+msgid "Product Variation Swatches"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:39
+msgid "Property"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:105
+msgid "Purchase"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:323
+msgid "QuickSwish"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:293
+msgid "Really Simple Google Tag Manager"
+msgstr ""
+
+#: admin/class-recommended-plugins.php:95
+#: admin/class-recommended-plugins.php:96
+msgid "Recommendations"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:45
+msgid "Recommended"
+msgstr ""
+
+#: admin/class-menu.php:76 admin/class-menu.php:77
+msgid "Reports"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:25
+msgid "Select Account"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:29
+msgid "Select account"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:56
+msgid "Select data stream"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:54
+msgid "Select data stream from your Google Analytics account"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:8
+msgid "Select how do you want to display this banner"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:42
+msgid "Select property"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:40
+msgid "Select property from your Google Analytics account"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:85
+msgid "Select Role"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:141
+msgid "Self-Hosted Audio"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:132
+msgid "Self-Hosted Video"
+msgstr ""
+
+#: admin/class-diagnostic-data.php:483
+#, php-format
+msgid ""
+"Server information (Web server, PHP version, MySQL version), WordPress "
+"information, site name, site URL, number of plugins, number of users, your "
+"name, and email address. You can rest assured that no sensitive data will be "
+"collected or tracked. %1$sLearn more%2$s."
+msgstr ""
+
+#: includes/class-base.php:37 admin/class-menu.php:67 admin/class-menu.php:68
 msgid "Settings"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:12
+msgid "Setup banner content from here"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:16
+msgid "Setup color of different parts of the banner from here"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:14
+msgid "Sign in with your Google Analytics account"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:347
+msgid "Sirve – Simple Directory Listing"
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:53
+msgid "Start date for filtering (YYYY-MM-DD format)"
 msgstr ""
 
 #. Description of the plugin
 msgid "Start tracking your website usage data by using Google Analytics 4."
 msgstr ""
 
-#: admin/admin-init.php:66
+#: includes/vue-settings/class-settings-rest-api.php:200
+msgid "Successfully cleared %d cache entries."
+msgstr ""
+
+#: admin/class-admin.php:61
 msgid "Successfully Settings Saved."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:689
+msgid "The provided authentication identifier is not valid."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:385
+msgid "The request does not have proper data!"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:81
+msgid "The users of the selected Role(s) will not be tracked"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:61
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website"
+msgstr ""
+
+#: includes/vue-settings/menu.php:13
+#: includes/vue-settings/schema-parts/tools.php:3
+msgid "Tools"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:142
+msgid "Track self-hosted audio plays on your website."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:133
+msgid "Track self-hosted video plays on your website."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:124
+msgid "Track Vimeo video plays on your website."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:736
+msgid "Unknown error occurred while fetching access token."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:893
+msgid "Unknown error occurred while fetching accounts."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:1064
+msgid "Unknown error occurred while fetching datastreams."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:983
+msgid "Unknown error occurred while fetching properties."
+msgstr ""
+
+#: admin/class-menu.php:101 admin/class-menu.php:102
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:14
+msgid "Video Events"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:57
+msgid "View Category"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:41
+msgid "View Product"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/events-tracking.php:123
+msgid "Vimeo Video"
+msgstr ""
+
+#: includes/traits/helper-trait.php:394
+msgid "vs. previous period"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:259
+msgid "Was This Helpful?"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:262
+msgid ""
+"Was this helpful? is a WordPress plugin that allows you to take visitors' "
+"feedback on your post/pages or any article. A visitor can share his feedback "
+"by like/dislike/yes/no"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:112
+msgid "WC Builder"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:311
+msgid "WC Sales Notification"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:118
+msgid "Whols"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:172
+msgid ""
+"Whols is an outstanding WordPress plugin for WooCommerce that allows store "
+"owners to set wholesale prices for the products of their online stores. This "
+"plugin enables you to show special wholesale prices to the wholesaler. Users "
+"can easily request to become a wholesale customer by filling out a simple "
+"online registration form. Once the registration is complete, the owner of "
+"the store will be able to review the request and approve the request either "
+"manually or automatically."
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:169
+msgid "Whols Pro"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:52
+msgid "WooLentor"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:145
+msgid ""
+"WooLentor is one of the most popular WooCommerce Elementor Addons on "
+"WordPress.org. It has been downloaded more than 672,148 times and 60,000 "
+"stores are using WooLentor plugin. Why not you?"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:142
+msgid "WooLentor Pro"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:235
+msgid "WordPress Mega Menu Builder for Elementor"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:106
+msgid "WP Plugin Manager"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:214
+msgid "WP Plugin Manager Pro"
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:217
+msgid ""
+"WP Plugin Manager Pro is a specialized WordPress Plugin that helps you to "
+"deactivate unnecessary WordPress Plugins page wise and boosts the speed of "
+"your WordPress site to improve the overall site performance."
+msgstr ""
+
+#: includes/vue-settings/reports/class-ga4-api.php:446
+msgid "You do not have permissions to manage reports."
+msgstr ""
+
+#: includes/vue-settings/class-settings-rest-api.php:77
+msgid "You do not have permissions to manage settings."
+msgstr ""
+
+#: admin/class-recommended-plugins-init.php:136
+msgid "You May Also Like"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:33
+msgid ""
+"• When checked, the GDPR Notice appears at the bottom of the page and "
+"overlaps your content.<br>• Unchecking this will push page content upward to "
+"make space for the notice."
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:52
+msgid ""
+"• When set to \"EU Only\", the notice will only appear for EU visitors. Non-"
+"EU visitors will track normally without seeing the notice."
+msgstr ""
+
+#: admin/class-diagnostic-data.php:504
+#, php-format
+msgid "🌟 Enhance Your %1$s Experience as a Valued Contributor!"
 msgstr ""

@@ -29,8 +29,6 @@ class Frontend {
 
 	public function __construct() {
 		if ( $this->get_measurement_id2() ) {
-			add_action( 'wp_head', array( $this, 'header_scirpt_render' ) );
-
 			// Compatibility with WooCommerce redirect to cart after added to cart feature.
 			if ( htga4()->get_option( 'add_to_cart_event' ) ) {
 				// works both ajax non ajax.
@@ -40,51 +38,6 @@ class Frontend {
 				add_action( 'template_redirect', array( $this, 'detect_added_to_cart_after_redirect_in_cart_page' ), 10, 1 );
 			}
 		}
-	}
-
-	public function header_scirpt_render() {
-		if ( $this->check_header_script_render_status() == false ) {
-			return;
-		}
-		?>
-			<!-- Global site tag (gtag.js) - added by HT Easy Ga4 -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_js( $this->get_measurement_id2() ); ?>"></script>
-			<script>
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('js', new Date());
-
-				gtag('config', <?php echo "'" . esc_js( $this->get_measurement_id2() ) . "'"; ?>);
-			</script>
-		<?php
-	}
-
-	/**
-	 * Check if the header script should be rendered or not.
-	 *
-	 * @return bool
-	 */
-	public function check_header_script_render_status() {
-		$return_value = true;
-
-		// If the current user is of the excluded user roles return false.
-		if ( is_user_logged_in() ) {
-			$exclude_user_roles = $this->get_option( 'exclude_roles' );
-
-			if( !is_array($exclude_user_roles) ){
-				$exclude_user_roles = [];
-			}
-
-			$current_user_id    = get_current_user_id();
-			$current_user       = get_userdata( $current_user_id );
-			$current_user_roles = $current_user->roles;
-
-			if ( ! empty( $exclude_user_roles ) && array_intersect( $exclude_user_roles, $current_user_roles ) ) {
-				$return_value = false;
-			}
-		}
-
-		return $return_value;
 	}
 
 	/**

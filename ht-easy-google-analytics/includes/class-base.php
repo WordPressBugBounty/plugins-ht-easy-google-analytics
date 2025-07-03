@@ -67,6 +67,9 @@ class Base {
 		add_action( 'admin_init', array( $this, 'login' ) );
 		add_action( 'admin_init', array( $this, 'logout' ) );
 
+		// Output centralized JS config
+		add_action( 'wp_head', array( $this, 'output_js_config' ), 1 );
+
 		// Set Notice.
 		add_action('admin_head', function(){
 			$remote_banner_data = $this->get_plugin_remote_data();
@@ -88,9 +91,11 @@ class Base {
 	public function includes() {
 		require_once HT_EASY_GA4_PATH . 'admin/class-admin.php';
 		require_once HT_EASY_GA4_PATH . 'admin/class-menu.php';
+		require_once HT_EASY_GA4_PATH . 'frontend/class-ga4-tracker.php';
 
 		require_once HT_EASY_GA4_PATH . 'admin/class-recommended-plugins.php';
 		require_once HT_EASY_GA4_PATH . 'admin/class-recommended-plugins-init.php';
+		require_once HT_EASY_GA4_PATH . 'includes/cookie-notice/class-cookie-notice.php';
 
 		if( is_admin() ){
 			require_once ( HT_EASY_GA4_PATH .'admin/class-trial.php' );
@@ -159,5 +164,27 @@ class Base {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Output centralized JavaScript configuration
+	 */
+	public function output_js_config() {
+		$cookie_notice = Cookie_Notice::get_instance();
+		$config = array(
+			'debug' => defined('WP_DEBUG') && WP_DEBUG,
+			'cookie_notice_enabled' => htga4_get_option('cookie_notice_enabled'),
+			'cookie_notice_cookie_key' => 'htga4_' . htga4_get_option('cookie_notice_cookie_key'),
+			'cookie_notice_duration_type' => htga4_get_option('cookie_notice_duration_type'),
+			'cookie_notice_duration_value' => htga4_get_option('cookie_notice_duration_value'),
+			'cookie_notice_overlay_enabled' => htga4_get_option('cookie_notice_overlay_enabled'),
+			'should_auto_consent' => $cookie_notice->should_auto_consent(),
+			'one_year_seconds' => YEAR_IN_SECONDS,
+		);
+		?>
+		<script>
+			window.HTGA4 = <?php echo wp_json_encode($config); ?>;
+		</script>
+		<?php
 	}
 }
