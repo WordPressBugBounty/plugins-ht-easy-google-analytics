@@ -101,43 +101,13 @@ trait Helper_Trait {
      * @return boolean
      */
     public function has_proper_request_data(){
-        if( $this->get_access_token() && $this->get_option('account') && $this->get_option('property') && $this->get_option('data_stream_id')  ){
+        if( $this->get_access_token() && htga4_get_option('account') && htga4_get_option('property') && htga4_get_option('data_stream_id')  ){
             return true;
         }
 
         return false;
     }
 
-    /**
-     * Returns the measurement ID for Google Analytics 4, either from the plugin's
-     * options or from a separate option for the GA4 ID.
-     * 
-     * @return string the measurement ID. If the measurement ID is set in the plugin options, it will return
-     * that value. Otherwise, it will return the value of the `ht_easy_ga4_id` option.
-     */
-    public function get_measurement_id(){
-        if( !empty($this->get_option('measurement_id')) && $this->get_access_token() ){
-            return $this->get_option('measurement_id');
-        } elseif( !$this->get_access_token() && !empty($this->get_option('ht_easy_ga4_id')) ){
-            return $this->get_option('ht_easy_ga4_id');
-        } else {
-            $ht_easy_ga4_id = get_option('ht_easy_ga4_id') ? get_option('ht_easy_ga4_id') : '';
-        }
-        
-        return $ht_easy_ga4_id;
-    }
-
-    public function get_measurement_id2(){
-        $ht_easy_ga4_id = '';
-
-        if( !empty($this->get_option('measurement_id')) ){
-            $ht_easy_ga4_id = $this->get_option('measurement_id');
-        } elseif( !empty($this->get_option('ht_easy_ga4_id')) ){
-            return $this->get_option('ht_easy_ga4_id');
-        }
-        
-        return $ht_easy_ga4_id;
-    }
 
     public function get_data($query_str){
         $get_data = wp_unslash($_GET); // phpcs:ignore
@@ -396,33 +366,6 @@ trait Helper_Trait {
 		<?php
 	}
 
-    /**
-     * This function retrieves a specific option value from the 'ht_easy_ga4_options' array or returns
-     * a default value if the option is not set.
-     * 
-     * @param option_name The name of the option to retrieve from the options array.
-     * @param default The default value to return if the option is not set or does not exist.
-     * 
-     * @return string|array
-     */
-    public function get_option( $option_name = '', $default = null ) {
-        $options = get_option( 'ht_easy_ga4_options' );
-        // Look into the updated options first
-        if( isset( $options[$option_name] ) ){
-
-            return $options[$option_name];
-
-        } elseif( get_option('ht_easy_ga4_id') ) {
-
-            // If not found in the updated options, look into the old options
-            return get_option('ht_easy_ga4_id');
-            
-        } else {
-            return $default;
-        }
-
-        return $default;
-    }
 
     /**
      * @param  [string] $section
@@ -530,7 +473,7 @@ trait Helper_Trait {
      * @return string
      */
     public function get_unique_transient_suffix(){
-        return $this->get_option('account') . '_' . $this->get_option('property') . '_' . $this->get_option('data_stream_id');
+        return htga4_get_option('account') . '_' . htga4_get_option('property') . '_' . htga4_get_option('data_stream_id');
     }
 
     /**

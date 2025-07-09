@@ -65,14 +65,9 @@ return ['general_route' => [
             'id' => 'measurement_id',
             'type' => 'text',
             'title' => __('GA4 Measurement / Tracking ID', 'ht-easy-ga4'),
-            'help' => __('Manually add the GA4 Tracking / Measurement ID here.', 'ht-easy-ga4'),
+            'desc' => __('GA4 Tracking / Measurement ID. This will be automatically populated when you select a data stream.', 'ht-easy-ga4'),
             'default' => '',
-            'placeholder' => 'G-XXXXXXXXXX',
-            'condition' => [
-                'key' => 'auth_google',
-                'operator' => '==',
-                'value' => ''
-            ]
+            'placeholder' => 'G-XXXXXXXXXX'
         ],
         'exclude_roles' => [
             'id' => 'exclude_roles',

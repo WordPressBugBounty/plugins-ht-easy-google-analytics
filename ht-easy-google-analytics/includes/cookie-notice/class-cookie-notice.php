@@ -208,7 +208,7 @@ class Cookie_Notice{
 	 */
 	public function is_notice_disabled() {
 		// Disable notice if cookie notice is disabled
-		if (!$this->config('cookie_notice_enabled')) {
+		if ( $this->config('cookie_notice_enabled') !== '1' ) {
 			return true;
 		}
 

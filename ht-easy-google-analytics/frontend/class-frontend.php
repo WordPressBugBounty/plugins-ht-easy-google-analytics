@@ -28,9 +28,9 @@ class Frontend {
 	}
 
 	public function __construct() {
-		if ( $this->get_measurement_id2() ) {
+		if ( htga4_get_measurement_id() ) {
 			// Compatibility with WooCommerce redirect to cart after added to cart feature.
-			if ( htga4()->get_option( 'add_to_cart_event' ) ) {
+			if ( htga4_get_option( 'add_to_cart_event' ) ) {
 				// works both ajax non ajax.
 				add_action( 'woocommerce_add_to_cart', array( $this, 'woocommerce_add_to_cart_cb' ), 10, 6 );
 

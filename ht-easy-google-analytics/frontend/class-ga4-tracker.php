@@ -30,7 +30,7 @@ class GA4_Tracker {
 		$this->set_config(array(
 			'cookie_notice_enabled' => htga4_get_option('cookie_notice_enabled'),
             'exclude_roles' => htga4_get_option('exclude_roles', []),
-			'measurement_id' => $this->get_measurement_id2()
+			'measurement_id' => htga4_get_measurement_id()
         ));
 
 		add_action( 'wp_head', array( $this, 'inject_gtag_base_script' ) );

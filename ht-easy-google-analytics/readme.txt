@@ -1,9 +1,9 @@
 === HT Easy GA4 - Google Analytics WordPress Plugin ===
-Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, tarekht
+Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, tarekht, alberuni-azad
 Tags: google, analytics, google analytics, google analytics plugin, ga4, ga, google analytics dashboard, google analytics widget, WordPress analytics, web analytics, ecommerce
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.5.1
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -189,6 +189,10 @@ Needs assistance to use this plugin?
 Feel free to [Contact us](https://hasthemes.com/contact-us/)
 
 == Changelog ==
+= Version: 1.5.3 - Date: 09 Jul 2025 =
+* Fixed: Cookie notice was displying even if it was disabled
+* Fixed: Measurement ID field was not populating when user is authenticated and select a data stream
+
 = Version: 1.5.1 - Date: 03 Jul 2025 =
 * Added: Added cookie consent notice feature
 * Updated: Language translation file
