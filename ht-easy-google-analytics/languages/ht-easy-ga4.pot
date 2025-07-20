@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HT Easy GA4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 11:08+0000\n"
+"POT-Creation-Date: 2025-07-20 05:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,14 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.0; wp-6.8.1; php-8.0.30\n"
+"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.0.30\n"
 "X-Domain: ht-easy-ga4"
 
 #: includes/vue-settings/schema-parts/cookie-notice.php:83
 msgid "Accept"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:145
+#: includes/vue-settings/schema-parts/cookie-notice.php:147
 msgid "Accept Button Background Color"
 msgstr ""
 
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Accept Button Text"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:152
+#: includes/vue-settings/schema-parts/cookie-notice.php:154
 msgid "Accept Button Text Color"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "By "
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:122
+#: includes/vue-settings/schema-parts/cookie-notice.php:124
 msgid "Changing this will re-show the notice to all visitors."
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Content Setup"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:121
+#: includes/vue-settings/schema-parts/cookie-notice.php:123
 msgid "Cookie Key Name"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Coupon Zen"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:101
+#: includes/vue-settings/schema-parts/cookie-notice.php:102
 msgid "Custom duration"
 msgstr ""
 
@@ -162,7 +162,7 @@ msgstr ""
 msgid "Decline"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:159
+#: includes/vue-settings/schema-parts/cookie-notice.php:161
 msgid "Decline Button Background Color"
 msgstr ""
 
@@ -170,7 +170,7 @@ msgstr ""
 msgid "Decline Button Text"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:166
+#: includes/vue-settings/schema-parts/cookie-notice.php:168
 msgid "Decline Button Text Color"
 msgstr ""
 
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Docus – YouTube Video Playlist"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:109
+#: includes/vue-settings/schema-parts/cookie-notice.php:110
 msgid "Duration (in days)"
 msgstr ""
 
@@ -225,6 +225,12 @@ msgstr ""
 msgid "End date for filtering (YYYY-MM-DD format)"
 msgstr ""
 
+#: includes/vue-settings/schema-parts/cookie-notice.php:111
+msgid ""
+"Enter the number of days for which the cookie will be stored. Once the "
+"cookie expires, the visitor will see the notice again."
+msgstr ""
+
 #: includes/vue-settings/class-settings-page.php:174
 msgid "Error"
 msgstr ""
@@ -243,7 +249,7 @@ msgstr ""
 msgid "Events Tracking"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/general.php:80
+#: includes/vue-settings/schema-parts/general.php:75
 msgid "Exclude Tracking For"
 msgstr ""
 
@@ -314,6 +320,12 @@ msgstr ""
 #: includes/vue-settings/reports/class-ga4-api.php:106
 #: includes/vue-settings/reports/class-ga4-api.php:273
 msgid "GA4 Property ID"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/general.php:68
+msgid ""
+"GA4 Tracking / Measurement ID. This will be automatically populated when you "
+"select a data stream."
 msgstr ""
 
 #: includes/vue-settings/menu.php:10
@@ -497,7 +509,7 @@ msgstr ""
 msgid "JustTables Pro"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:174
+#: includes/vue-settings/schema-parts/cookie-notice.php:176
 msgid "Link Color"
 msgstr ""
 
@@ -508,10 +520,6 @@ msgstr ""
 #: includes/vue-settings/schema-parts/general.php:15
 #, php-format
 msgid "Logout (%s)"
-msgstr ""
-
-#: includes/vue-settings/schema-parts/general.php:68
-msgid "Manually add the GA4 Tracking / Measurement ID here."
 msgstr ""
 
 #: includes/vue-settings/reports/class-standard-reports.php:205
@@ -539,7 +547,7 @@ msgid ""
 "switch to their preferred currency or their country’s currency."
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:100
+#: includes/vue-settings/schema-parts/cookie-notice.php:101
 msgid "No expiry"
 msgstr ""
 
@@ -552,7 +560,7 @@ msgstr ""
 msgid "Nonce verification failed."
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:131
+#: includes/vue-settings/schema-parts/cookie-notice.php:133
 msgid "Notice Background Color"
 msgstr ""
 
@@ -560,7 +568,7 @@ msgstr ""
 msgid "Notice Text"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:138
+#: includes/vue-settings/schema-parts/cookie-notice.php:140
 msgid "Notice Text Color"
 msgstr ""
 
@@ -576,7 +584,7 @@ msgid ""
 msgstr ""
 
 #: includes/vue-settings/schema-parts/cookie-notice.php:31
-msgid "Overlay GDPR Notice on Page Content"
+msgid "Overlap Notice on Page Content"
 msgstr ""
 
 #: admin/class-recommended-plugins.php:418
@@ -599,7 +607,7 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/cookie-notice.php:173
+#: includes/vue-settings/schema-parts/cookie-notice.php:175
 msgid "Privacy Policy Link Color"
 msgstr ""
 
@@ -672,7 +680,7 @@ msgstr ""
 msgid "Select property from your Google Analytics account"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/general.php:85
+#: includes/vue-settings/schema-parts/general.php:80
 msgid "Select Role"
 msgstr ""
 
@@ -737,7 +745,7 @@ msgstr ""
 msgid "The request does not have proper data!"
 msgstr ""
 
-#: includes/vue-settings/schema-parts/general.php:81
+#: includes/vue-settings/schema-parts/general.php:76
 msgid "The users of the selected Role(s) will not be tracked"
 msgstr ""
 
@@ -800,7 +808,7 @@ msgstr ""
 msgid "Vimeo Video"
 msgstr ""
 
-#: includes/traits/helper-trait.php:394
+#: includes/traits/helper-trait.php:364
 msgid "vs. previous period"
 msgstr ""
 
@@ -821,6 +829,13 @@ msgstr ""
 
 #: admin/class-recommended-plugins-init.php:311
 msgid "WC Sales Notification"
+msgstr ""
+
+#: includes/vue-settings/schema-parts/cookie-notice.php:99
+msgid ""
+"When set to \"No expiry\", the cookie will not expire. When set to \"Custom "
+"duration\", the cookie will expire after the specified number of days and "
+"not be re-shown to the visitor."
 msgstr ""
 
 #: admin/class-recommended-plugins-init.php:118
@@ -890,9 +905,8 @@ msgstr ""
 
 #: includes/vue-settings/schema-parts/cookie-notice.php:33
 msgid ""
-"• When checked, the GDPR Notice appears at the bottom of the page and "
-"overlaps your content.<br>• Unchecking this will push page content upward to "
-"make space for the notice."
+"• When checked, the Notice overlaps your content.<br>• Unchecking this will "
+"push page content upward to make space for the notice."
 msgstr ""
 
 #: includes/vue-settings/schema-parts/cookie-notice.php:52
