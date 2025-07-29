@@ -11,5 +11,8 @@ return [
     ],
     'tools' => [
         'title' => __('Tools', 'ht-easy-ga4'),
+    ],
+    'cache' => [
+        'title' => __('Cache', 'ht-easy-ga4'),
     ]
 ];

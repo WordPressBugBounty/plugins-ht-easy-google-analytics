@@ -105,6 +105,9 @@ class Base {
 		}
 
 		require_once HT_EASY_GA4_PATH . 'frontend/class-frontend.php';
+
+		// Load GA4 Inspector module
+		require_once HT_EASY_GA4_PATH . 'includes/inspector/class-inspector.php';
 	}
 
 	public function login() {

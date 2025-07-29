@@ -1,7 +1,5 @@
 <?php
 namespace Ht_Easy_Ga4;
-use const Ht_Easy_Ga4\PL_URL;
-use const Ht_Easy_Ga4\PL_PATH;
 
 class Cookie_Notice{
 	use \Ht_Easy_Ga4\Traits\Config_Trait;
@@ -63,8 +61,8 @@ class Cookie_Notice{
 	}
 
 	public function notice_css_and_js() {
-		wp_register_style('htga4-wp-colors', PL_URL . '/assets/css/wp-colors.css', array(), null);
-		wp_register_style('htga4-style', PL_URL . '/assets/css/style.css', array(), null);
+		wp_register_style('htga4-wp-colors', HT_EASY_GA4_URL . '/assets/css/wp-colors.css', array(), null);
+		wp_register_style('htga4-style', HT_EASY_GA4_URL . '/assets/css/style.css', array(), null);
 
 		wp_enqueue_style('htga4-wp-colors');
 		wp_enqueue_style('htga4-style');

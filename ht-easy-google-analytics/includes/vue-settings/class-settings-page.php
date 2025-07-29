@@ -1,7 +1,5 @@
 <?php
 namespace Ht_Easy_Ga4\Vue_Settings;
-use const Ht_Easy_Ga4\PL_URL;
-use const Ht_Easy_Ga4\PL_VERSION;
 
 class Settings_Page {
     use \Ht_Easy_Ga4\Helper_Trait;
@@ -36,7 +34,7 @@ class Settings_Page {
 		if( defined( 'WP_DEBUG' ) && WP_DEBUG ){
 			$this->version = time();
 		} else {
-			$this->version = PL_VERSION;
+			$this->version = HT_EASY_GA4_VERSION;
 		}
 
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
@@ -112,7 +110,7 @@ class Settings_Page {
             // CSS
             wp_enqueue_style(
                 'htga4-vue-settings-style',
-                PL_URL . '/build/vue-settings/style.css',
+                HT_EASY_GA4_URL . '/build/vue-settings/style.css',
                 array(),
                 $this->version,
                 'all'
@@ -121,7 +119,7 @@ class Settings_Page {
             // JS
             wp_enqueue_script(
                 'htga4-vue-settings',
-                PL_URL . '/build/vue-settings/main.js',
+                HT_EASY_GA4_URL . '/build/vue-settings/main.js',
                 array(),
                 $this->version,
                 true
@@ -145,7 +143,7 @@ class Settings_Page {
         wp_localize_script('htga4-vue-settings', 'htga4Settings', array(
             'nonce'       => wp_create_nonce('wp_rest'),
             'apiBaseURL'  => esc_url_raw(rest_url()),
-            'pluginVersion' => PL_VERSION,
+            'pluginVersion' => HT_EASY_GA4_VERSION,
             'apiEndpoint' => 'htga4/v1/settings',
             'rolesApiEndpoint' => 'htga4/v1/wholesaler-roles',
             'proAdvInfo' => array(

@@ -3,7 +3,7 @@ Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, tarekht, alberuni-a
 Tags: google, analytics, google analytics, google analytics plugin, ga4, ga, google analytics dashboard, google analytics widget, WordPress analytics, web analytics, ecommerce
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.5.4
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,7 @@ HT Easy GA4 is an exceptional Google Analytics 4  WordPress plugin that brings a
 - 👉 WooCommerce Integration (Pro)
 - 👉 Exclude Administrators from being tracked
 - 👉 Exclude Custom User Roles from being tracked (Pro)
+- 👉 GA4 Inspector Tool - Debug and verify your Google Analytics 4 implementation with a real-time debug panel
 
 ## 🔥 Premium Features 🔥
 - E-commerce Reports 
@@ -85,6 +86,8 @@ HT Easy GA4 is an exceptional Google Analytics 4  WordPress plugin that brings a
 **Login With Google** - With HT GA4, login with Google allows you to seamlessly access the property and measurement ID of your Google account. This integration provides a convenient and efficient way to view and manage your Google Analytics data directly within the HT GA4 plugin.
 
 **Integration with WooCommerce** - The HT GA4 plugin is compatible with WooCommerce. As a result, it facilitates tracking various eCommerce activities on your WooCommerce store easier. This feature can also provide you with vital insights that you can use to enhance your store for business growth. Thus, it would be a perfect plugin for Google Analytics for WooCommerce.
+
+**GA4 Inspector Tool** - The GA4 Inspector is a powerful debugging tool that helps you verify your Google Analytics 4 implementation in real-time. When enabled, it displays a debug panel on your website that shows which GA4 measurement IDs are present, checks if the Google Analytics gtag script is properly loaded, and verifies if the dataLayer is present and working correctly. Simply add `?htga4_inspector=1` to any page URL to activate the inspector and troubleshoot your GA4 setup.
 
 ### Standard Reports
 
@@ -189,8 +192,8 @@ Needs assistance to use this plugin?
 Feel free to [Contact us](https://hasthemes.com/contact-us/)
 
 == Changelog ==
-= Version: 1.5.4 - Date: 20 Jul 2025 =
-* Updated: Translation translation file
+= Version: 1.6.0 - Date: 29 Jul 2025 =
+- Added: Ga4 Inspector tool to debug GA4 tracking
 
 = Version: 1.5.3 - Date: 09 Jul 2025 =
 * Fixed: Cookie notice was displying even if it was disabled

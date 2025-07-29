@@ -18,6 +18,9 @@ class Settings_Schema {
 
             // Tools
             require __DIR__ . '/schema-parts/tools.php',
+
+            // Cache
+            require __DIR__ . '/schema-parts/cache.php',
         );
     }
 }

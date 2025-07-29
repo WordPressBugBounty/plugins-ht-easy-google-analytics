@@ -1,6 +1,4 @@
 <?php
-use const Ht_Easy_Ga4\PL_FILE;
-
 /**
  * Include a plugin file safely
  *
@@ -10,7 +8,7 @@ use const Ht_Easy_Ga4\PL_FILE;
 if( !function_exists('htga4_include_plugin_file') ){
     function htga4_include_plugin_file( $path ){
         // Get plugin directory path
-        $plugin_dir = plugin_dir_path( PL_FILE );
+        $plugin_dir = plugin_dir_path( HT_EASY_GA4_ROOT );
         
         // Clean the path and ensure it's relative
         $path = ltrim( str_replace('\\', '/', $path), '/' );
