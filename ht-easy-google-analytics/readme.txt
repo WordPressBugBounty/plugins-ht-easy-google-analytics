@@ -1,9 +1,9 @@
 === HT Easy GA4 - Google Analytics WordPress Plugin ===
-Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, tarekht, alberuni-azad
+Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, yeasinrony
 Tags: google, analytics, google analytics, google analytics plugin, ga4, ga, google analytics dashboard, google analytics widget, WordPress analytics, web analytics, ecommerce
 Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 1.6.0
+Tested up to: 6.9
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ HT Easy GA4 - Google Analytics WordPress Plugin enables tracking user behavior a
 HT Easy GA4 - Google Analytics 4 WordPress plugin is a great option for those in search of the best Google Analytics WordPress plugin for WordPress website traffic analytics. This easy-to-use and intuitive Google Analytics plugin for WordPress enables you to link your WordPress site with Google Analytics 4 with a few clicks and get complete analytics for WordPress site.
 The plugin developed by the HasThemes team can be pretty useful if you are a user of [Google Analytics 4](https://support.google.com/analytics/answer/10089681), also known as GA4.  
 
-`[youtube https://www.youtube.com/watch?v=AreAbEZD5I0]`
+`[youtube https://www.youtube.com/watch?v=usY-WwUMPnM]`
 
 In the past, it was a little complicated to combine website and mobile app usage data using the older Google Analytics tools. The only way it was possible was by using separate Google Analytics property. With the latest Google Analytics 4 version, you will get more advantages over the older Universal Analytics tool in terms of web analytics.
 
@@ -46,6 +46,10 @@ HT Easy GA4 is an exceptional Google Analytics 4  WordPress plugin that brings a
 - 👉 Exclude Administrators from being tracked
 - 👉 Exclude Custom User Roles from being tracked (Pro)
 - 👉 GA4 Inspector Tool - Debug and verify your Google Analytics 4 implementation with a real-time debug panel
+- 👉 Custom Events with Dynamic parameters and presets
+- 👉 Purchase Event Tracking - Track WooCommerce purchase transactions in GA4
+- 👉 Google Ads Conversion Tracking - Track WooCommerce purchase conversions in Google Ads
+- 👉 Server-Side Event Tracking - Track events via GA4 Measurement Protocol to bypass ad blockers
 
 ## 🔥 Premium Features 🔥
 - E-commerce Reports 
@@ -69,17 +73,22 @@ HT Easy GA4 is an exceptional Google Analytics 4  WordPress plugin that brings a
     - Top country’s
     - Device Types
 
-- E-Commerce Events
+- E-Commerce Events (Pro)
     * View Product
     * View Category
     * Add to Cart
     * Initiate Checkout
-    * Purchase
 
 - Video & Audio Events
     * Vimeo Video Engagement
     * Self Hosted Video Engagement
     * Self Hosted Audio Engagement
+
+- Google Ads Advanced Conversion Events
+    * Add to Cart Conversions
+    * Begin Checkout Conversions
+    * View Product Conversions
+    * View Category Conversions
 
 ### Details of Each Feature of HT Easy GA4
 
@@ -88,6 +97,12 @@ HT Easy GA4 is an exceptional Google Analytics 4  WordPress plugin that brings a
 **Integration with WooCommerce** - The HT GA4 plugin is compatible with WooCommerce. As a result, it facilitates tracking various eCommerce activities on your WooCommerce store easier. This feature can also provide you with vital insights that you can use to enhance your store for business growth. Thus, it would be a perfect plugin for Google Analytics for WooCommerce.
 
 **GA4 Inspector Tool** - The GA4 Inspector is a powerful debugging tool that helps you verify your Google Analytics 4 implementation in real-time. When enabled, it displays a debug panel on your website that shows which GA4 measurement IDs are present, checks if the Google Analytics gtag script is properly loaded, and verifies if the dataLayer is present and working correctly. Simply add `?htga4_inspector=1` to any page URL to activate the inspector and troubleshoot your GA4 setup.
+
+**Custom Events** - Create and track custom events with dynamic parameters to monitor specific user interactions on your website. The custom events feature allows you to set up event tracking for form submissions, button clicks, and other user actions using CSS selectors. You can configure event names, parameters, and trigger conditions with both simple and advanced parameter modes. This feature includes presets for common tracking scenarios and supports both static and dynamic parameter values to provide comprehensive insights into user behavior and engagement.
+
+**Google Ads Conversion Tracking** - Seamlessly integrate Google Ads conversion tracking with your WooCommerce store to measure the effectiveness of your advertising campaigns. Track purchase conversions automatically and send them directly to Google Ads with detailed product information, transaction values, and customer data. The delayed conversion tracking system ensures that conversions are properly attributed even when customers complete their purchase during a later visit. With multiple tracking hooks including payment completion, thank you pages, and order status changes, you can be confident that no conversion goes untracked. This feature helps you optimize your Google Ads campaigns by providing accurate conversion data and ROI metrics. Purchase conversion tracking is available in the free version, while advanced conversion events (Add to Cart, Begin Checkout, View Product, View Category) are available in the Pro version for comprehensive conversion funnel analysis.
+
+**Server-Side Event Tracking** - Send GA4 events directly from your server using the Measurement Protocol API, bypassing browser-based ad blockers and privacy extensions that can block traditional client-side tracking. This ensures more accurate and complete analytics data by capturing events that would otherwise be lost. All events maintain user session continuity with proper client ID and session ID handling. Enable this feature in the plugin settings and configure your Measurement Protocol API secret to start tracking events reliably, even when visitors use ad-blocking software.
 
 ### Standard Reports
 
@@ -192,7 +207,35 @@ Needs assistance to use this plugin?
 Feel free to [Contact us](https://hasthemes.com/contact-us/)
 
 == Changelog ==
-= Version: 1.6.0 - Date: 29 Jul 2025 =
+= Version: 1.9.1 - Date: 14 Dec 2025 =
+* Improved: Account, Property, Data Stream, and API Secret dropdowns now display in alphabetical order
+* Added: Search functionality for Account dropdown to quickly find accounts
+* Fixed: MP API Secret field visibility conditions for authenticated vs non-authenticated users
+
+= Version: 1.9.0 - Date: 01 Dec 2025 =
+* Added: Server-side purchase event tracking for WooCommerce orders
+* Added: Server-side custom event tracking
+
+= Version: 1.8.2 - Date: 13 Nov 2025 =
+* Fixed: Minor issue with notice manager.
+
+= Version: 1.8.1 - Date: 22 Oct 2025 =
+* Improved: Minor UI update and optimizations.
+
+= Version: 1.8.0 - Date: 16 Oct 2025 =
+* Added: Google Ads conversion tracking for WooCommerce purchases
+* Added: Delayed conversion tracking system for better attribution
+
+= Version: 1.7.2 - Date: 09 Oct 2025 =
+- Fixed: Report data not getting update properly.
+
+= Version: 1.7.1 - Date: 09 Oct 2025 =
+- Fixed: Minor style issue.
+
+= Version: 1.7.0 - Date: 09 Oct 2025 =
+- Added: Custom events with presets, 3 different trigger types and dynamic parameter value support
+
+= Version: 1.6.0 - Date: 27 Jul 2025 =
 - Added: Ga4 Inspector tool to debug GA4 tracking
 
 = Version: 1.5.3 - Date: 09 Jul 2025 =
@@ -243,7 +286,7 @@ Feel free to [Contact us](https://hasthemes.com/contact-us/)
 * Fixed: Some css issues of admin panel
 
 = Version: 1.2.2 - Date: 2024-07-16 =
-* Fixed: Currency sybmol were not showing properly
+* Fixed: Currency symbol were not showing properly
 * Fixed: Several issues from the PCP plugin check
 
 = Version: 1.2.1 - Date: 2024-05-19 =
@@ -344,5 +387,7 @@ This section describes how to install the HT Easy GA4 Plugin for WordPress get i
 4. Tracking Code Added to the Website
 5. Dashboard Settings Panel with Option to Login with Google
 6. Events tracking (available in Pro version)
-7. GDPR Cookie Notice
-8. Option to clear cache
+7. Custom Events Configuration
+8. Google Ads Conversion Tracking (available in Pro version)
+9. GDPR Cookie Notice
+10. Option to clear cache

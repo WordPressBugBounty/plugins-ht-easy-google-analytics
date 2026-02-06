@@ -104,15 +104,7 @@ return ['events-tracking_route' => [
             'type' => 'switch',
             'title' => __('Purchase', 'ht-easy-ga4'),
             'help' => __('Fire the Purchase event when a visitor completes a purchase.', 'ht-easy-ga4'),
-            'default' => false,
-            'class' => $opacity_class,
-            'conditionn' => [
-                [
-                    'key' => 'enable_ecommerce_events',
-                    'operator' => '==',
-                    'value' => true
-                ]
-            ]
+            'default' => false
         ],
         
         // Video Events

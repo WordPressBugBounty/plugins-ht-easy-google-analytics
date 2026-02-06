@@ -52,6 +52,20 @@ return ['cookie_notice_route' => [
             'help' => __('• When set to "EU Only", the notice will only appear for EU visitors. Non-EU visitors will track normally without seeing the notice.', 'ht-easy-ga4'),
         ],
 
+        'cookie_notice_layout' => [
+            'id' => 'cookie_notice_layout',
+            'section' => 'display_setup',
+            'type' => 'select',
+            'title' => __('Notice Layout', 'ht-easy-ga4'),
+            'options' => [
+                'default' => __('Default', 'ht-easy-ga4'),
+                'sidebar' => __('Sidebar', 'ht-easy-ga4'),
+                'floating' => __('Floating', 'ht-easy-ga4'),
+            ],
+            'default' => 'default',
+            'help' => __('• When set to "Default", the notice will be displayed in the default layout.<br>• When set to "Sidebar", the notice will be displayed in a sidebar layout.<br>• When set to "Floating", the notice will be displayed in a floating layout.', 'ht-easy-ga4'),
+        ],
+
         // Content Setup
         'cookie_notice_text' => [
             'id' => 'cookie_notice_text',
@@ -159,7 +173,7 @@ return ['cookie_notice_route' => [
             'section' => 'color_setup',
             'type' => 'color',
             'title' => __('Decline Button Background Color', 'ht-easy-ga4'),
-            'default' => 'transparent',
+            'default' => 'rgba(248, 5, 5, 0)',
         ],
         'cookie_notice_decline_text_color' => [
             'id' => 'cookie_notice_decline_text_color',

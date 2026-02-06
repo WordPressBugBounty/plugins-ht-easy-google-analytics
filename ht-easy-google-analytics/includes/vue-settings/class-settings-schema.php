@@ -13,6 +13,9 @@ class Settings_Schema {
             // Events Tracking
             require __DIR__ . '/schema-parts/events-tracking.php',
 
+            // Custom Events
+            require __DIR__ . '/schema-parts/custom-events.php',
+
             // Cookie Notice
             require __DIR__ . '/schema-parts/cookie-notice.php',
 
@@ -21,6 +24,9 @@ class Settings_Schema {
 
             // Cache
             require __DIR__ . '/schema-parts/cache.php',
+
+            // Google Ads
+            require __DIR__ . '/schema-parts/google-ads.php',
         );
     }
 }

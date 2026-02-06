@@ -75,7 +75,7 @@ class Settings_Page {
             return;
         }
 
-        $is_dev = isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'plugindev.test';
+        $is_dev = isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'htg4.test';
         
 
         if ($is_dev && $this->is_vite_running()) {

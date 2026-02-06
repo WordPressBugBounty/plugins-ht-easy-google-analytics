@@ -34,10 +34,16 @@ class Admin {
 	public function __construct() {
 		// Clean transiets data if url has email parameter & value match with database email.
 		$email = isset( $_GET['email'] ) ? sanitize_text_field( wp_unslash( $_GET['email'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$secret_key = isset( $_GET['secret_key'] ) ? sanitize_text_field( wp_unslash( $_GET['secret_key'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		if ( $email ) {
 			$this->clear_transients();
 		}
+
+		if( !empty($secret_key) ){
+			update_option('htga4_secret_key', $secret_key);
+		}
+		
 	}
 
 

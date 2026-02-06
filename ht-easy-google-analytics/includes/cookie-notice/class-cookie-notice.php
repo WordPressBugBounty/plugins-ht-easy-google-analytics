@@ -42,6 +42,7 @@ class Cookie_Notice{
 
             // Cookie notice display region
 			'cookie_notice_display_region'  => htga4_get_option('cookie_notice_display_region', ''),
+			'cookie_notice_layout'          => htga4_get_option('cookie_notice_layout', 'default'),
 
 			// Colors
 			'background_color' => htga4_get_option('cookie_notice_bg_color'),
@@ -69,6 +70,7 @@ class Cookie_Notice{
 
 		wp_add_inline_style('htga4-style', $this->get_style());
 
+		wp_enqueue_script('jquery');
 		wp_add_inline_script('jquery', $this->notice_consent_logic_js());
 	}
 

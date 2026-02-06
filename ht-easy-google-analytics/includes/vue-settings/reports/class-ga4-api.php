@@ -283,6 +283,36 @@ class GA4_API {
                 )
             )
         );
+
+        register_rest_route(
+            'htga4/v1',
+            '/measurement-protocol-secrets/(?P<property_id>[\w-]+)/(?P<stream_id>[\w-]+)',
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array($this, 'get_measurement_protocol_secrets_cb'),
+                'permission_callback' => array($this, 'check_permission'),
+                'args'                => array(
+                    'property_id' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'description'       => __('GA4 Property ID', 'ht-easy-ga4'),
+                    ),
+                    'stream_id' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'description'       => __('GA4 Data Stream ID', 'ht-easy-ga4'),
+                    ),
+                ),
+                'force_refresh' => array(
+                    'required'          => false,
+                    'type'              => 'integer',
+                    'description'       => __('Force refresh data by clearing transient cache', 'ht-easy-ga4'),
+                    'validate_callback' => function($param) {
+                        return empty($param) || is_numeric($param);
+                    }
+                )
+            )
+        );
     }
 
     /**
@@ -1063,6 +1093,89 @@ class GA4_API {
                 ? $response_data['error']['message'] 
                 : __('Unknown error occurred while fetching datastreams.', 'ht-easy-ga4');
                 
+            return rest_ensure_response([
+                'error' => [
+                    'message' => $error_message,
+                    'code'    => $response_code,
+                ]
+            ]);
+        }
+
+        if( !htga4_disable_transient_cache() ){
+            set_transient($cache_key, $response_data, (MINUTE_IN_SECONDS * 58));
+        }
+
+        return rest_ensure_response($response_data);
+    }
+
+    /**
+     * Get Measurement Protocol API secrets from Google API
+     *
+     * @param WP_REST_Request $request The REST API request
+     * @return WP_REST_Response The response with measurement protocol secrets
+     */
+    public function get_measurement_protocol_secrets_cb($request){
+        $property_id = $request->get_param('property_id');
+        $stream_id = $request->get_param('stream_id');
+
+        $access_token = GA4_API_Service::get_instance()->get_access_token();
+
+        if (!$access_token) {
+            return rest_ensure_response([
+                'error' => [
+                    'message' => __('Access token is missing!', 'ht-easy-ga4'),
+                    'code'    => 400,
+                ]
+            ]);
+        }
+
+        // Check if force refresh is requested
+        $force_refresh = $request->get_param('force_refresh');
+
+        // Create cache key
+        $cache_key = 'htga4_mp_secrets_v3_' . $property_id . '_' . $stream_id;
+
+        if (!empty($force_refresh)) {
+            delete_transient($cache_key);
+        }
+
+        // Try to get cached data
+        $cached_data = get_transient($cache_key);
+        if (false !== $cached_data && empty($force_refresh)) {
+            return rest_ensure_response($cached_data);
+        }
+
+        // API endpoint: properties/{property}/dataStreams/{dataStream}/measurementProtocolSecrets
+        $request_url = 'https://analyticsadmin.googleapis.com/v1beta/properties/' . $property_id . '/dataStreams/' . $stream_id . '/measurementProtocolSecrets';
+        $request_args = [
+            'timeout'   => 20,
+            'headers'   => [
+                'Authorization' => 'Bearer ' . $access_token,
+                'Content-Type' => 'application/json',
+            ],
+            'sslverify' => false,
+        ];
+
+        $response = wp_remote_get($request_url, $request_args);
+
+        if (is_wp_error($response)) {
+            return rest_ensure_response([
+                'error' => [
+                    'message' => $response->get_error_message(),
+                    'code'    => $response->get_error_code(),
+                ]
+            ]);
+        }
+
+        $response_code = wp_remote_retrieve_response_code($response);
+        $response_body = wp_remote_retrieve_body($response);
+        $response_data = json_decode($response_body, true);
+
+        if ($response_code !== 200) {
+            $error_message = isset($response_data['error']['message'])
+                ? $response_data['error']['message']
+                : __('Unknown error occurred while fetching measurement protocol secrets.', 'ht-easy-ga4');
+
             return rest_ensure_response([
                 'error' => [
                     'message' => $error_message,

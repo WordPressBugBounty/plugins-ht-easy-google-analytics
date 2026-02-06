@@ -4,8 +4,9 @@ $notice_privacy_url  = $this->config('cookie_notice_privacy_url');
 $notice_privacy_text = $this->config('cookie_notice_privacy_text');
 $notice_accept_text  = $this->config('cookie_notice_accept_text');
 $notice_decline_text = $this->config('cookie_notice_decline_text');
+$notice_layout       = $this->config('cookie_notice_layout');
 ?>
-<div id="htga4-cookie-notice" class="htga4-cookie-notice">
+<div id="htga4-cookie-notice" class="htga4-cookie-notice htga4-cookie-notice--<?php echo esc_attr($notice_layout); ?>">
     <div class="htga4-cookie-notice__content">
         <div class="htga4-cookie-notice__text-section">
             <p class="htga4-cookie-notice__text">

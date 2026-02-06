@@ -72,6 +72,10 @@ class Base {
 
 		// Set Notice.
 		add_action('admin_head', function(){
+			if ( ! class_exists( '\Ht_Easy_Ga4\Admin\Notice_Handler' ) ) {
+				return;
+			}
+
 			$remote_banner_data = $this->get_plugin_remote_data();
 
 			if (!empty($remote_banner_data) && is_array($remote_banner_data)) {
@@ -98,7 +102,7 @@ class Base {
 		require_once HT_EASY_GA4_PATH . 'includes/cookie-notice/class-cookie-notice.php';
 
 		if( is_admin() ){
-			require_once ( HT_EASY_GA4_PATH .'admin/class-trial.php' );
+			// require_once ( HT_EASY_GA4_PATH .'admin/class-trial.php' );
 			require_once ( HT_EASY_GA4_PATH .'admin/class-diagnostic-data.php' );
 
 			require_once HT_EASY_GA4_PATH . 'admin/class-notice-handler.php';
@@ -108,6 +112,60 @@ class Base {
 
 		// Load GA4 Inspector module
 		require_once HT_EASY_GA4_PATH . 'includes/inspector/class-inspector.php';
+
+		// Load Google Ads module
+		$this->load_google_ads_module();
+
+		// Load Server-Side Tracking module
+		$this->load_server_side_module();
+
+		// Load Events Tracking module
+		$this->load_events_tracking_module();
+	}
+
+	/**
+	 * Load Google Ads module
+	 */
+	private function load_google_ads_module() {
+		// Load helper functions first
+		require_once HT_EASY_GA4_PATH . 'includes/google-ads/helper-functions.php';
+
+		// Check if Pro version is active
+		if ( htga4_is_pro() && file_exists( WP_PLUGIN_DIR . '/ht-easy-google-analytics-pro/includes/google-ads-pro/class-pro-manager.php' ) ) {
+			// Load Pro version
+			require_once WP_PLUGIN_DIR . '/ht-easy-google-analytics-pro/includes/google-ads-pro/class-pro-manager.php';
+			\Ht_Easy_Ga4\GoogleAdsPro\Pro_Manager::instance();
+		} else {
+			// Load main version
+			require_once HT_EASY_GA4_PATH . 'includes/google-ads/class-manager.php';
+			\Ht_Easy_Ga4\GoogleAds\Manager::instance();
+		}
+	}
+
+	/**
+	 * Load Server-Side Tracking module
+	 */
+	private function load_server_side_module() {
+		// Load Measurement Protocol API client
+		require_once HT_EASY_GA4_PATH . 'includes/server-side/class-measurement-protocol.php';
+		// Load Free version
+		require_once HT_EASY_GA4_PATH . 'includes/server-side/class-server-side-tracking.php';
+		\Ht_Easy_Ga4\ServerSide\Server_Side_Tracking::instance();
+
+		// Load AJAX handler for custom events
+		require_once HT_EASY_GA4_PATH . 'includes/server-side/class-ajax-handler.php';
+		\Ht_Easy_Ga4\ServerSide\Ajax_Handler::instance();
+	}
+
+	/**
+	 * Load Events Tracking module (Purchase event only)
+	 * Pro version handles all events in Manage_Data_Layer.php
+	 */
+	private function load_events_tracking_module() {
+		// Load Events Tracking module (purchase event only)
+		require_once HT_EASY_GA4_PATH . 'includes/events-tracking/class-event-tracker.php';
+		require_once HT_EASY_GA4_PATH . 'includes/events-tracking/class-manager.php';
+		\Ht_Easy_Ga4\EventsTracking\Manager::instance();
 	}
 
 	public function login() {
@@ -141,13 +199,25 @@ class Base {
 			// We should not delete because it has other settings like events
 			// delete_option( 'ht_easy_ga4_options' );
 
+			$client_site = htga4_is_ngrok_url() !== null ? htga4_is_ngrok_url() : site_url();
+			$email = sanitize_email($mail);
+			$secret_key = get_option('htga4_secret_key');
+			$timestamp = time();
+			$sinature_data = $email . '|' . $client_site . '|' . $timestamp . '|';
+			$signature = hash_hmac('sha256', $sinature_data, $secret_key);
+
+			$body = [
+				'email' => $email,
+				'signature' => $signature,
+				'timestamp' => $timestamp,
+				'client_site' => $client_site
+			];
+
 			$response = wp_remote_post(
-				htga4_get_api_url('v1/delete-data'),
+				htga4_get_api_url('v1/account/delete-data'),
 				array(
 					'timeout'   => 20,
-					'body'      => array(
-						'email' => sanitize_email( $mail ),
-					),
+					'body'      => $body,
 					'sslverify' => false,
 				)
 			);
@@ -158,6 +228,7 @@ class Base {
 				$response_body = json_decode( $response['body'], true );
 				if ( ! empty( $response_body['success'] ) ) {
 					delete_option( 'htga4_email' );
+					delete_option( 'htga4_secret_key' );
 
 					$current_admin_url = $this->get_current_admin_url();
 					// Remove htga4_logout from URL.

@@ -207,14 +207,27 @@ class GA4_API_Service {
         }
         
         // No cached token, use the REST API endpoint
-        $request_url = htga4_get_api_base_url() . 'v1/get-access-token';
+        $request_url = htga4_get_api_base_url() . 'v1/account/get-access-token';
+
+        $client_site = htga4_is_ngrok_url() !== null ? htga4_is_ngrok_url() : site_url();
+
+        $email = sanitize_email($email);
+        $secret_key = get_option('htga4_secret_key');
+        $timestamp = time();
+        $sinature_data = $email . '|' . $client_site . '|' . $timestamp . '|';
+        $signature = hash_hmac('sha256', $sinature_data, $secret_key);
+
+        $body = [
+            'email' => $email,
+            'key'   => get_option('htga4_sr_api_key'),
+            'signature' => $signature,
+            'timestamp' => $timestamp,
+            'client_site' => $client_site
+        ];
 
         $response = wp_remote_post($request_url, [
             'timeout' => 10,
-            'body' => [
-                'email' => sanitize_email($email),
-                'key'   => get_option('htga4_sr_api_key')
-            ],
+            'body' => $body,
             'sslverify' => false,
             'headers' => [
                 'Accept' => 'application/json'

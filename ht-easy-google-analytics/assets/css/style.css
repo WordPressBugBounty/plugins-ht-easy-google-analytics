@@ -22,7 +22,7 @@ Table of contents:
 .htga4-cookie-notice__content {
     max-width: 960px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 15px;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -40,11 +40,14 @@ Table of contents:
     margin: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .htga4-cookie-notice__link {
     color: var(--wp-color-blue-50);
     text-decoration: underline;
+    margin-left: 10px;
 }
 
 .htga4-cookie-notice__actions {
@@ -53,6 +56,7 @@ Table of contents:
     gap: 15px;
     align-items: center;
     justify-content: flex-end;
+    font-size: 13px;
 }
 
 .htga4-cookie-notice__button {
@@ -82,4 +86,68 @@ Table of contents:
     .htga4-cookie-notice__content {
         flex-direction: column;
     }
+}
+
+/* Sidebar layout */
+.htga4-cookie-notice--sidebar {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 320px;
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid #f0f0f1;
+    bottom: auto;
+}
+.htga4-cookie-notice--sidebar .htga4-cookie-notice__content {
+    flex-direction: column;
+    padding: 0;
+}
+.htga4-cookie-notice--sidebar .htga4-cookie-notice__actions{
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+}
+.htga4-cookie-notice--sidebar .htga4-cookie-notice__actions span{
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Floating layout */
+.htga4-cookie-notice--floating{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f0f0f1;
+    transform: translateX(400px);
+    animation: slideInRight 0.5s ease forwards;
+    left: auto;
+}
+@keyframes slideInRight {
+    to {
+        transform: translateX(0);
+    }
+}
+.htga4-cookie-notice--floating .htga4-cookie-notice__content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+}
+.htga4-cookie-notice--floating .htga4-cookie-notice__actions{
+    width: 100%;
+    justify-content:flex-start;
+}
+.htga4-cookie-notice--floating .htga4-cookie-notice__button {
+    flex: 1 0 auto;
+    text-align: center;
+    padding: 8px 0;
 }

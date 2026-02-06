@@ -38,18 +38,33 @@ function htga4_disable_transient_cache(){
     return false;
 }
 
+function htga4_remove_protocol($url) {
+    return preg_replace('/^https?:\/\//', '', $url);
+}
 
 /**
- * Check if the current request is being made through ngrok
- *
- * @return string|null Returns the ngrok URL if the request is being made through ngrok, otherwise returns null
+ * Extract protocol from URL
+ * 
+ * @param string $url The URL to extract protocol from
+ * @return string Protocol (http or https), defaults to https
  */
+function htga4_extract_protocol($url) {
+    if (preg_match('/^(https?):\/\//', $url, $matches)) {
+        return $matches[1];
+    }
+    return 'https'; // Default to https
+}
+
+
 function htga4_is_ngrok_url(){
     // development mode with ngrok
     $forwarded_host = !empty($_SERVER['HTTP_X_FORWARDED_HOST']) ? wp_unslash($_SERVER['HTTP_X_FORWARDED_HOST']) : ''; // phpcs:ignore
 
-    if( $forwarded_host == 'dominant-fleet-swan.ngrok-free.app' ){
-        return 'https://dominant-fleet-swan.ngrok-free.app';
+    $redirect_uris = htga4_get_config_value('javascript_origins');
+    $url_protocoless = htga4_remove_protocol($redirect_uris);
+
+    if( $forwarded_host == $url_protocoless ){
+        return $redirect_uris;
     }
 
     return null;
@@ -205,8 +220,8 @@ function htga4_get_measurement_id() {
  * This function retrieves a specific option value from the 'ht_easy_ga4_options' array or returns
  * a default value if the option is not set.
  * 
- * @param option_name The name of the option to retrieve from the options array.
- * @param default The default value to return if the option is not set or does not exist.
+ * @param string $option_name The name of the option to retrieve from the options array.
+ * @param mixed $default The default value to return if the option is not set or does not exist.
  * 
  * @return string|array
  */

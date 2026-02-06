@@ -103,6 +103,27 @@ if ( ! class_exists( 'Notice_Handler' ) ){
             .hastech-admin-notice.notice img, .hastech-review-notice-wrap img{
                 width: 100%;
             }
+            .hastech-admin-notice.promo-banner {
+                position: relative;
+                padding: 12px !important;
+                margin-left: 0;
+            }
+            .hastech-admin-notice.promo-banner a {
+                display: flex;
+            }
+
+            #hastech-notice-id-halloween-notice {
+                padding: 12px;
+                border-left-width: 1px;
+            }
+            #hastech-notice-id-halloween-notice .notice-dismiss {
+                top: -10px;
+                right: -10px;
+                background-color: white;
+                padding: 2px;
+                border-radius: 50px;
+                border: 1px solid #ddd;
+            }
             .hastech-review-notice-wrap{
                 border-left-color: #2271b1 !important;
                 display: flex;

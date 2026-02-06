@@ -453,10 +453,7 @@ trait Helper_Trait {
     }
 
     public function is_ngrok_url(){
-        // development mode with ngrok
-        $forwarded_host = !empty($_SERVER['HTTP_X_FORWARDED_HOST']) ? wp_unslash($_SERVER['HTTP_X_FORWARDED_HOST']) : ''; // phpcs:ignore
-
-        if( $forwarded_host == 'dominant-fleet-swan.ngrok-free.app' ){
+        if( htga4_is_ngrok_url() !== null ){
             return true;
         }
 
@@ -464,7 +461,7 @@ trait Helper_Trait {
     }
 
     public function get_ngrok_url(){
-        return 'https://dominant-fleet-swan.ngrok-free.app';
+        return htga4_is_ngrok_url();
     }
 
     /**
@@ -488,7 +485,7 @@ trait Helper_Trait {
      */
     public function get_plugin_remote_data($version = null) {
         $transient_key = 'htga4_remote_data_v' . $version;
-        $feequency_to_update = 3 * DAY_IN_SECONDS; // N Days later fetch data again
+        $frequency_to_update = 2 * DAY_IN_SECONDS; // N Days later fetch data again
         $remote_url = 'https://feed.hasthemes.com/notices/ht-easy-google-analytics.json';
         // $remote_url = HT_EASY_GA4_URL . '/remote.json';
         
@@ -509,7 +506,7 @@ trait Helper_Trait {
                 $remote_banner_data = json_decode($remote_banner_req['body'], true);
                 
                 // Store in version-specific transient if force update, otherwise use regular transient
-                set_transient($transient_key, $remote_banner_data, $feequency_to_update);
+                set_transient($transient_key, $remote_banner_data, $frequency_to_update);
             }
         }
     
