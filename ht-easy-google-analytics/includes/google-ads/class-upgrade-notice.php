@@ -39,6 +39,9 @@ class Upgrade_Notice {
 		// Add upgrade prompts to settings page
 		add_action( 'admin_footer', array( $this, 'add_settings_upgrade_prompts' ) );
 
+		// Dismiss handler script on all admin pages
+		add_action( 'admin_footer', array( $this, 'add_dismiss_script' ) );
+
 		// Check for conversion milestones
 		add_action( 'admin_init', array( $this, 'check_conversion_milestones' ) );
 	}
@@ -127,15 +130,12 @@ class Upgrade_Notice {
 		}
 
 		?>
-		<div class="notice notice-info">
+		<div class="notice notice-info is-dismissible htga4-upgrade-notice" data-notice-id="setup-incomplete">
 			<h3><?php esc_html_e( 'Complete Your Google Ads Setup', 'ht-easy-ga4' ); ?></h3>
 			<p><?php esc_html_e( 'You haven\'t set up Google Ads conversion tracking yet. Start tracking your ROI today!', 'ht-easy-ga4' ); ?></p>
 			<p>
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=ht-easy-ga4-setting-page#/google-ads' ) ); ?>" class="button button-primary">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=ht-easy-ga4-setting-page#/settings/google-ads' ) ); ?>" class="button button-primary">
 					<?php esc_html_e( 'Configure Now', 'ht-easy-ga4' ); ?>
-				</a>
-				<a href="<?php echo esc_url( $this->get_upgrade_url( 'setup_notice' ) ); ?>" class="button button-secondary" target="_blank">
-					<?php esc_html_e( 'Get Pro for One-Click Setup', 'ht-easy-ga4' ); ?>
 				</a>
 			</p>
 		</div>
@@ -180,6 +180,32 @@ class Upgrade_Notice {
 				</button>
 			</p>
 		</div>
+		<?php
+	}
+
+	/**
+	 * Add dismiss handler script for upgrade notices on all admin pages
+	 */
+	public function add_dismiss_script() {
+		?>
+		<script>
+			jQuery(function($) {
+				$(document).on('click', '.htga4-upgrade-notice .notice-dismiss, .htga4-upgrade-notice .htga4-dismiss-notice', function(e) {
+					var $notice = $(this).closest('.htga4-upgrade-notice');
+					var noticeId = $notice.data('notice-id');
+
+					if ( ! noticeId ) {
+						return;
+					}
+
+					$.post(ajaxurl, {
+						action: 'htga4_dismiss_upgrade_notice',
+						notice_id: noticeId,
+						nonce: '<?php echo wp_create_nonce( 'htga4_dismiss_notice' ); ?>'
+					});
+				});
+			});
+		</script>
 		<?php
 	}
 
@@ -330,6 +356,13 @@ class Upgrade_Notice {
 		$screen = get_current_screen();
 
 		if ( ! $screen || ( $screen->id !== 'dashboard' && strpos( $screen->id, 'ht-easy-ga4' ) === false ) ) {
+			return false;
+		}
+
+		// Check if dismissed
+		$dismissed = get_user_meta( get_current_user_id(), 'htga4_dismissed_notices', true );
+
+		if ( isset( $dismissed['setup-incomplete'] ) ) {
 			return false;
 		}
 

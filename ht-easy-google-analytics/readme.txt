@@ -3,7 +3,7 @@ Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, yeasinrony
 Tags: google, analytics, google analytics, google analytics plugin, ga4, ga, google analytics dashboard, google analytics widget, WordPress analytics, web analytics, ecommerce
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -207,6 +207,11 @@ Needs assistance to use this plugin?
 Feel free to [Contact us](https://hasthemes.com/contact-us/)
 
 == Changelog ==
+= Version: 1.9.2 - Date: 23 Feb 2026 =
+* Improved: Google Ads setup-incomplete notice is now dismissable
+* Improved: Hide Conversion ID and Exclude User Roles fields when Google Ads tracking is disabled
+* Improved: Admin notice display
+
 = Version: 1.9.1 - Date: 14 Dec 2025 =
 * Improved: Account, Property, Data Stream, and API Secret dropdowns now display in alphabetical order
 * Added: Search functionality for Account dropdown to quickly find accounts
