@@ -13,7 +13,7 @@ HT Easy GA4 - Google Analytics WordPress Plugin enables tracking user behavior a
 HT Easy GA4 - Google Analytics 4 WordPress plugin is a great option for those in search of the best Google Analytics WordPress plugin for WordPress website traffic analytics. This easy-to-use and intuitive Google Analytics plugin for WordPress enables you to link your WordPress site with Google Analytics 4 with a few clicks and get complete analytics for WordPress site.
 The plugin developed by the HasThemes team can be pretty useful if you are a user of [Google Analytics 4](https://support.google.com/analytics/answer/10089681), also known as GA4.  
 
-`[youtube https://www.youtube.com/watch?v=usY-WwUMPnM]`
+[youtube https://www.youtube.com/watch?v=usY-WwUMPnM]
 
 In the past, it was a little complicated to combine website and mobile app usage data using the older Google Analytics tools. The only way it was possible was by using separate Google Analytics property. With the latest Google Analytics 4 version, you will get more advantages over the older Universal Analytics tool in terms of web analytics.
 
