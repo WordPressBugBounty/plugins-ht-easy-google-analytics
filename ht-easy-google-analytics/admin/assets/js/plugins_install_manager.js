@@ -71,6 +71,7 @@
                 slug: $plugindata['slug']
             });
 
+
         },
 
         /**
@@ -92,7 +93,7 @@
                     data: {
                         action   : htrp_params.text_domain+'_ajax_plugin_activation',
                         location : $plugindata['location'],
-                        nonce    : htrp_params.nonce,
+                        nonce    : htrp_params.nonce
                     },
                 } ).done( function( result ) {
                     if ( result.success ) {
@@ -105,6 +106,8 @@
                         $message.removeClass( 'updating-message' );
                     }
 
+                } ).fail( function() {
+                    $message.removeClass( 'updating-message' );
                 });
 
             }, 1200 );
@@ -132,7 +135,7 @@
                 data: {
                     action   : htrp_params.text_domain+'_ajax_plugin_activation',
                     location : $plugindata['location'],
-                    nonce    : htrp_params.nonce,
+                    nonce    : htrp_params.nonce
                 },
             }).done( function( response ) {
                 if ( response.success ) {
@@ -140,7 +143,11 @@
                         .attr( 'disabled', 'disabled' )
                         .addClass( 'disabled' )
                         .text( htrp_params.buttontxt.active );
+                } else {
+                    $button.removeClass( 'updating-message' );
                 }
+            }).fail( function() {
+                $button.removeClass( 'updating-message' );
             });
 
         },

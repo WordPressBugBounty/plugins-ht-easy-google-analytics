@@ -108,10 +108,10 @@ class Recommended_Plugins {
 	public function enqueue_assets( $hook_suffix ) {
 		if ( $this->hook_suffix ) {
 			if ( $this->hook_suffix == $hook_suffix ) {
-				wp_enqueue_script( 'htrp-plugin-install-manager', $this->assets_url . '/js/plugins_install_manager.js', array( 'jquery', 'wp-util', 'updates' ), '1.0.0', true );
+				wp_enqueue_script( 'htrp-plugin-install-manager', $this->assets_url . '/js/plugins_install_manager.js', array( 'jquery', 'wp-util', 'updates' ), HT_EASY_GA4_VERSION, true );
 			}
 		} else {
-			wp_enqueue_script( 'htrp-plugin-install-manager', $this->assets_url . '/js/plugins_install_manager.js', array( 'jquery', 'wp-util', 'updates' ), '1.0.0', true );
+			wp_enqueue_script( 'htrp-plugin-install-manager', $this->assets_url . '/js/plugins_install_manager.js', array( 'jquery', 'wp-util', 'updates' ), HT_EASY_GA4_VERSION, true );
 		}
 
 		/**
@@ -155,15 +155,19 @@ class Recommended_Plugins {
 
 		$tabs_list = apply_filters( 'htga4_recommended_plugins_tab_list', $this->tab_list );
 
-		$htplugins_plugin_list = $this->get_plugins();
-		$palscode_plugin_list  = $this->get_plugins( 'palscode' );
-
-		$plugin_list = array_merge( $htplugins_plugin_list, $palscode_plugin_list );
-
-		$prepare_plugin = array();
-		foreach ( $plugin_list as $plugin_key => $plugin ) {
-			$prepare_plugin[ $plugin['slug'] ] = $plugin;
+		$requested_slugs = array();
+		foreach ( $tabs_list as $tab ) {
+			if ( empty( $tab['plugins'] ) ) {
+				continue;
+			}
+			foreach ( $tab['plugins'] as $plugin ) {
+				if ( ! empty( $plugin['slug'] ) ) {
+					$requested_slugs[] = $plugin['slug'];
+				}
+			}
 		}
+
+		$prepare_plugin = $this->get_plugins_info( $requested_slugs );
 
 		?>
 			<div class="wrap">
@@ -172,8 +176,21 @@ class Recommended_Plugins {
 					.htrp-admin-tab-pane{
 						display: none;
 					}
+					/* Grid layout is normally provided by core's .plugin-install-php #the-list rule,
+					   which is scoped to WP's own Add Plugins screen and never matches this page -
+					   define it ourselves so the cards don't just stack in a single column. */
 					.htrp-admin-tab-pane.htrp-active{
-						display: block;
+						display: flex;
+						flex-wrap: wrap;
+						gap: 16px;
+					}
+					.plugin-card{
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+					}
+					.plugin-card h3 a{
+						text-decoration: none;
 					}
 					.htrp-extension-admin-tab-area .filter-links li>a:focus, .htrp-extension-admin-tab-area .filter-links li>a:hover {
 						color: inherit;
@@ -220,10 +237,11 @@ class Recommended_Plugins {
 							'location' => isset( $plugin['location'] ) ? $plugin['slug'] . '/' . $plugin['location'] : '',
 							'name'     => isset( $plugin['name'] ) ? $plugin['name'] : '',
 						);
-						$title = wp_kses( $plugin['name'], $this->plugins_allowedtags );
 
 						if ( array_key_exists( $plugin['slug'], $prepare_plugin ) ) {
 							$plugins_type = 'free';
+							$title        = $data['name'] ? $data['name'] : $prepare_plugin[ $plugin['slug'] ]['name'];
+							$title        = wp_kses( $title, $this->plugins_allowedtags );
 							$image_url    = $this->plugin_icon( $plugins_type, $prepare_plugin[ $data['slug'] ]['icons'] );
 							$description  = wp_strip_all_tags( $prepare_plugin[ $data['slug'] ]['description'] );
 							$author_name  = wp_kses( $prepare_plugin[ $data['slug'] ]['author'], $this->plugins_allowedtags );
@@ -233,11 +251,12 @@ class Recommended_Plugins {
 
 						} else {
 							$plugins_type   = 'pro';
+							$title          = wp_kses( $plugin['name'], $this->plugins_allowedtags );
 							$image_url      = $this->plugin_icon( $plugins_type, $plugin['slug'] );
-							$description    = $plugin['description'];
+							$description    = isset( $plugin['description'] ) ? $plugin['description'] : '';
 							$author_name    = esc_html__( 'HasTheme', 'ht-easy-ga4' );
-							$author_link    = $plugin['author_link'];
-							$details_link   = $plugin['link'];
+							$author_link    = isset( $plugin['author_link'] ) ? $plugin['author_link'] : '';
+							$details_link   = isset( $plugin['link'] ) ? $plugin['link'] : '';
 							$button_text    = esc_html__( 'Buy Now', 'ht-easy-ga4' );
 							$button_classes = 'button button-primary';
 							$target         = '_blank';
@@ -330,28 +349,71 @@ class Recommended_Plugins {
 	}
 
 	/**
-	 * [get_plugins] Get plugin from wp.org API
+	 * [get_plugins_info] Look up wp.org plugin info by slug (not by author account —
+	 * wp.org's author-query filters by actual SVN repo ownership, which can differ
+	 * from a plugin's displayed "Author:" line and silently miss real plugins).
 	 *
-	 * @param string $username wo.org username.
-	 * @return [array] plugin list
+	 * @param  array $slugs Plugin slugs to look up.
+	 * @return array Associative array keyed by slug; slugs plugins_api() can't
+	 *               resolve (pro-only/paid, not on wp.org) are simply absent.
 	 */
-	public function get_plugins( $username = 'htplugins' ) {
-		$transient_var    = 'htrp_htplugins_list_' . $username;
-		$org_plugins_list = get_transient( $transient_var );
+	public function get_plugins_info( $slugs ) {
 
-		if ( false === $org_plugins_list ) {
-			$plugins_list_by_author = plugins_api(
-				'query_plugins',
-				array(
-					'author'   => $username,
-					'per_page' => 100,
-				)
-			);
-			set_transient( $transient_var, $plugins_list_by_author->plugins, 1 * WEEK_IN_SECONDS );
-			$org_plugins_list = $plugins_list_by_author->plugins;
+		if ( empty( $slugs ) ) {
+			return array();
 		}
 
-		return $org_plugins_list;
+		$slugs = array_unique( $slugs );
+		sort( $slugs ); // deterministic cache key regardless of tab iteration order.
+
+		$transient_var = 'htrp_htplugins_info_' . md5( implode( ',', $slugs ) );
+		$plugins_info  = get_transient( $transient_var );
+
+		if ( false === $plugins_info ) {
+
+			$plugins_info = array();
+
+			foreach ( $slugs as $slug ) {
+				$plugin_info = plugins_api(
+					'plugin_information',
+					array(
+						'slug'   => $slug,
+						'fields' => array(
+							'short_description' => true,
+							'sections'          => false,
+							'icons'             => true,
+							'active_installs'   => true,
+							'author'            => true,
+							'versions'          => false,
+							'ratings'           => false,
+							'reviews'           => false,
+							'banners'           => false,
+							'compatibility'     => false,
+							'homepage'          => false,
+							'donate_link'       => false,
+							'tags'              => false,
+						),
+					)
+				);
+
+				if ( is_wp_error( $plugin_info ) ) {
+					continue; // Not on wp.org (pro-only / paid slug) — stays in the "pro" render branch.
+				}
+
+				$plugins_info[ $slug ] = array(
+					'name'            => $plugin_info->name,
+					'slug'            => $plugin_info->slug,
+					'icons'           => (array) $plugin_info->icons,
+					'description'     => $plugin_info->short_description,
+					'author'          => $plugin_info->author,
+					'active_installs' => $plugin_info->active_installs,
+				);
+			}
+
+			set_transient( $transient_var, $plugins_info, 1 * WEEK_IN_SECONDS );
+		}
+
+		return $plugins_info;
 	}
 
 	/**
