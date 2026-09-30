@@ -54,7 +54,15 @@ class Cookie_Notice{
 			'link_color' => htga4_get_option('cookie_notice_privacy_link_color'),
 		) );
 
-		// Show on frontend only if cookie notice should be displayed
+		// Decide on template_redirect (front end only) so the geo lookup never runs
+		// for admin, AJAX, REST or cron requests.
+		add_action('template_redirect', array($this, 'maybe_show_notice'));
+	}
+
+	/**
+	 * Show on frontend only if cookie notice should be displayed
+	 */
+	public function maybe_show_notice() {
 		if( !$this->is_notice_disabled() ){
 			add_action('wp_footer', array($this, 'render_notice_markup'));
 			add_action('wp_enqueue_scripts', array($this, 'notice_css_and_js'));
@@ -269,29 +277,87 @@ class Cookie_Notice{
 		];
 
 		$user_country = $this->get_user_country();
+
+		// Unknown country (lookup failed / rate-limited / private IP) → treat as non-EU
+		// so tracking isn't blocked for everyone when the lookup is unavailable.
+		if (!$user_country) {
+			return false;
+		}
+
 		return in_array($user_country, $eu_countries);
 	}
 
 	/**
 	 * Get user's country code
+	 *
+	 * Order: CDN/server geo header → cached lookup → remote lookup.
+	 * Returns empty string when the country can't be determined.
 	 */
 	private function get_user_country() {
-		$ip = $this->get_user_ip();
+		static $country = null;
 
-		if (function_exists('wp_remote_get')) {
-			$response = wp_remote_get("http://ip-api.com/json/{$ip}?fields=countryCode");
+		// Called twice per request (should_show / should_auto_consent); look up once.
+		if (null !== $country) {
+			return $country;
+		}
 
-			if (!is_wp_error($response)) {
-				$body = wp_remote_retrieve_body($response);
-				$data = json_decode($body, true);
-
-				if (isset($data['countryCode'])) {
-					return $data['countryCode'];
+		// Country header set by the CDN / server (no remote call needed).
+		$header_keys = ['HTTP_CF_IPCOUNTRY', 'HTTP_CLOUDFRONT_VIEWER_COUNTRY', 'GEOIP_COUNTRY_CODE'];
+		foreach ($header_keys as $key) {
+			if (!empty($_SERVER[$key])) {
+				$code = strtoupper(sanitize_text_field(wp_unslash($_SERVER[$key])));
+				if (preg_match('/^[A-Z]{2}$/', $code) && 'XX' !== $code) {
+					$country = $code;
+					return $country;
 				}
 			}
 		}
 
-		return 'US';
+		$country = '';
+		$ip = $this->get_user_ip();
+
+		// Skip lookup for invalid, private and local IPs.
+		if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+			return $country;
+		}
+
+		$cache_key = 'htga4_geo_' . md5($ip);
+		$cached = get_transient($cache_key);
+		if (false !== $cached) {
+			$country = $cached;
+			return $country;
+		}
+
+		// Lookup service recently failed / rate-limited; don't retry on every request.
+		if (get_transient('htga4_geo_lookup_failed')) {
+			return $country;
+		}
+
+		$response = wp_remote_get(
+			'http://ip-api.com/json/' . rawurlencode($ip) . '?fields=countryCode',
+			array('timeout' => 2)
+		);
+
+		$code = is_wp_error($response) ? 0 : (int) wp_remote_retrieve_response_code($response);
+
+		// Service unreachable, rate-limited (45/min) or erroring: pause lookups briefly
+		// for everyone. Kept short because visitors are treated as non-EU meanwhile.
+		if (0 === $code || 429 === $code || $code >= 500) {
+			set_transient('htga4_geo_lookup_failed', 1, MINUTE_IN_SECONDS);
+			return $country;
+		}
+
+		$data = 200 === $code ? json_decode(wp_remote_retrieve_body($response), true) : null;
+		if (!empty($data['countryCode'])) {
+			$country = $data['countryCode'];
+			set_transient($cache_key, $country, DAY_IN_SECONDS);
+			return $country;
+		}
+
+		// Service is up but has no country for this IP: remember that for this IP only.
+		set_transient($cache_key, '', HOUR_IN_SECONDS);
+
+		return $country;
 	}
 
 	/**

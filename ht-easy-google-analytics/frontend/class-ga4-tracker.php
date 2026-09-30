@@ -106,67 +106,70 @@ class GA4_Tracker {
 		}
 		?>
 		<script>
-			const DEBUG = window.HTGA4 && window.HTGA4.debug;
+			// Scoped so names like DEBUG / log / getCookie cannot collide with theme or plugin globals.
+			(function() {
+				const DEBUG = window.HTGA4 && window.HTGA4.debug;
 			
-			window.htga4_update_consent = function(consent) {
-				gtag('consent', 'update', {
-					'ad_storage': consent === 'yes' ? 'granted' : 'denied',
-					'analytics_storage': consent === 'yes' ? 'granted' : 'denied',
-					'ad_user_data': consent === 'yes' ? 'granted' : 'denied',
-					'ad_personalization': consent === 'yes' ? 'granted' : 'denied'
-				});
+				window.htga4_update_consent = function(consent) {
+					gtag('consent', 'update', {
+						'ad_storage': consent === 'yes' ? 'granted' : 'denied',
+						'analytics_storage': consent === 'yes' ? 'granted' : 'denied',
+						'ad_user_data': consent === 'yes' ? 'granted' : 'denied',
+						'ad_personalization': consent === 'yes' ? 'granted' : 'denied'
+					});
 				
-				// Dispatch custom event for consent changes
-				if (consent === 'yes') {
-					window.dispatchEvent(new CustomEvent('htga4_consent_granted'));
-				}
-			};
-
-			// Helper function to get cookie value
-			function getCookie(name) {
-				const value = `; ${document.cookie}`;
-				const parts = value.split(`; ${name}=`);
-				if (parts.length === 2) return parts.pop().split(';').shift();
-				return null;
-			}
-
-			function log(...args) {
-				if (DEBUG) console.log(...args);
-			}
-
-			function initConsentFlow() {
-				log("Starting consent flow");
-
-				// Check if HTGA4 config is available
-				if (typeof window.HTGA4 === 'undefined') {
-					log("HTGA4 config not available");
-					return;
-				}
-
-				// If user should get automatic consent (notice disabled or non-EU user with EU-only setting)
-				if (window.HTGA4.should_auto_consent) {
-					log("Auto consent granted → always track");
-					if (typeof window.htga4_update_consent === 'function') {
-						window.htga4_update_consent('yes');
+					// Dispatch custom event for consent changes
+					if (consent === 'yes') {
+						window.dispatchEvent(new CustomEvent('htga4_consent_granted'));
 					}
-					return;
+				};
+
+				// Helper function to get cookie value
+				function getCookie(name) {
+					const value = `; ${document.cookie}`;
+					const parts = value.split(`; ${name}=`);
+					if (parts.length === 2) return parts.pop().split(';').shift();
+					return null;
 				}
 
-				// Check if user has already given consent
-				const storedConsent = getCookie(window.HTGA4.cookie_notice_cookie_key);
-				if (storedConsent === 'yes' || storedConsent === 'no') {
-					log("Using stored consent:", storedConsent);
-					if (typeof window.htga4_update_consent === 'function') {
-						window.htga4_update_consent(storedConsent);
+				function log(...args) {
+					if (DEBUG) console.log(...args);
+				}
+
+				function initConsentFlow() {
+					log("Starting consent flow");
+
+					// Check if HTGA4 config is available
+					if (typeof window.HTGA4 === 'undefined') {
+						log("HTGA4 config not available");
+						return;
 					}
-				} else {
-					log("No stored consent found");
-					// Cookie notice will handle showing the consent request
-					// PHP side determines if notice should be shown based on region/settings
-				}
-			}
 
-			initConsentFlow();
+					// If user should get automatic consent (notice disabled or non-EU user with EU-only setting)
+					if (window.HTGA4.should_auto_consent) {
+						log("Auto consent granted → always track");
+						if (typeof window.htga4_update_consent === 'function') {
+							window.htga4_update_consent('yes');
+						}
+						return;
+					}
+
+					// Check if user has already given consent
+					const storedConsent = getCookie(window.HTGA4.cookie_notice_cookie_key);
+					if (storedConsent === 'yes' || storedConsent === 'no') {
+						log("Using stored consent:", storedConsent);
+						if (typeof window.htga4_update_consent === 'function') {
+							window.htga4_update_consent(storedConsent);
+						}
+					} else {
+						log("No stored consent found");
+						// Cookie notice will handle showing the consent request
+						// PHP side determines if notice should be shown based on region/settings
+					}
+				}
+
+				initConsentFlow();
+			})();
 		</script>
 		<?php
 	}

@@ -101,7 +101,7 @@ class Menu {
 			__( 'Upgrade to Pro', 'ht-easy-ga4' ),
 			__( 'Upgrade to Pro', 'ht-easy-ga4' ),
 			'manage_options',
-			'https://hasthemes.com/plugins/google-analytics-plugin-for-wordpress/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free#pricing'
+			htga4_upgrade_url( 'admin-menu' )
 		);
 	}
 

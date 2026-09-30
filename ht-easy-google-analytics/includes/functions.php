@@ -235,3 +235,25 @@ function htga4_get_option( $option_name = '', $default = null ) {
     
     return $default;
 }
+
+/**
+ * Get the Pro upgrade URL tagged with the in-plugin placement.
+ *
+ * utm_source=plugin separates in-plugin clicks from the wp.org listing;
+ * utm_content tells which surface the click came from.
+ *
+ * @param string $placement Where the link is shown, e.g. 'admin-menu', 'pro-modal'.
+ *
+ * @return string
+ */
+function htga4_upgrade_url( $placement = 'general' ) {
+    return add_query_arg(
+        array(
+            'utm_source'   => 'plugin',
+            'utm_medium'   => 'ht-ga4-free',
+            'utm_campaign' => 'free_to_pro',
+            'utm_content'  => sanitize_key( $placement ),
+        ),
+        'https://hasthemes.com/plugins/google-analytics-plugin-for-wordpress/#pricing'
+    );
+}

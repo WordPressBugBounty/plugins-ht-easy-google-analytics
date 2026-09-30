@@ -46,25 +46,37 @@ class Base {
 		add_action('plugins_loaded', function(){
 			$htga4_email = !empty( $_GET['email']) ? sanitize_email( $_GET['email']) : ''; // phpcs:ignore
 			$htga4_sr_api_key = !empty( $_GET['key']) ? sanitize_text_field( $_GET['key']) : ''; // phpcs:ignore
-			
+			$htga4_secret_key = !empty( $_GET['secret_key']) ? sanitize_text_field( wp_unslash( $_GET['secret_key'] ) ) : ''; // phpcs:ignore
+
 			$nonce = !empty( $_GET['_wpnonce']) ? sanitize_text_field( $_GET['_wpnonce']) : '';  // phpcs:ignore
 			$nonce_check_result = wp_verify_nonce($nonce, 'htga4_save_key_nonce');
 
+			// Only trust the auth callback's redirect: valid nonce from get_auth_url() + admin user.
 			if( $nonce_check_result && $htga4_email && current_user_can('manage_options') ){
+				// Clear cached GA4 data from any previously connected account.
+				$this->clear_transients();
+
 				update_option('htga4_email', $htga4_email);
 				update_option('htga4_sr_api_key', $htga4_sr_api_key);
+
+				// Secret key signs token refresh & logout requests to the auth server.
+				if( $htga4_secret_key ){
+					update_option('htga4_secret_key', $htga4_secret_key);
+				}
 
 				$admin_url 		= admin_url('admin.php?page=ht-easy-ga4-setting-page');
 				if( $this->is_ngrok_url() ){
 					$admin_url = $this->get_ngrok_url() . '/wp-admin/admin.php?page=ht-easy-ga4-setting-page';
 				}
 
-				header("Location:$admin_url");
+				// Stop here so the rest of the admin request doesn't run and the URL
+				// carrying email/secret_key/_wpnonce is replaced right away.
+				wp_redirect( $admin_url );
+				exit;
 			}
 		});
 
-		// Action when login & logout.
-		add_action( 'admin_init', array( $this, 'login' ) );
+		// Action when logout. (Login is handled by the auth-callback redirect in plugins_loaded above.)
 		add_action( 'admin_init', array( $this, 'logout' ) );
 
 		// Output centralized JS config
@@ -168,15 +180,6 @@ class Base {
 		\Ht_Easy_Ga4\EventsTracking\Manager::instance();
 	}
 
-	public function login() {
-		$get_data = wp_unslash( $_GET ); // phpcs:ignore
-
-		if (  current_user_can('manage_options') && ! empty( $get_data['access_token'] ) && ! empty( $get_data['email'] ) ) {
-			set_transient( 'htga4_access_token', sanitize_text_field( $get_data['access_token'] ), ( MINUTE_IN_SECONDS * 58 ) );
-			update_option( 'htga4_email', sanitize_email( $get_data['email'] ) );
-		}
-	}
-
 	public function logout() {
 		// Previllage check.
 		if( !current_user_can('manage_options') ){
@@ -193,6 +196,12 @@ class Base {
 		$mail = get_option( 'htga4_email' );
 
 		if ( ! empty( $get_data['htga4_logout'] ) ) {
+			// Logout link is a GET request; require a nonce so it can't be triggered cross-site.
+			$nonce = ! empty( $get_data['_htga4_nonce'] ) ? sanitize_text_field( $get_data['_htga4_nonce'] ) : '';
+			if ( ! wp_verify_nonce( $nonce, 'htga4_logout' ) ) {
+				return;
+			}
+
 			$this->clear_data();
 
 			// Delete access_token & email.
@@ -232,9 +241,9 @@ class Base {
 
 					$current_admin_url = $this->get_current_admin_url();
 					// Remove htga4_logout from URL.
-					$current_admin_url = remove_query_arg( 'htga4_logout', $current_admin_url );
+					$current_admin_url = remove_query_arg( array( 'htga4_logout', '_htga4_nonce' ), $current_admin_url );
 					wp_safe_redirect( $current_admin_url );
-					return;
+					exit;
 				}
 			}
 		}

@@ -3,7 +3,7 @@ Contributors: htplugins, hasthemes, zenaulislam, aslamhasib, yeasinrony
 Tags: google, analytics, google analytics, google analytics plugin, ga4, ga, google analytics dashboard, google analytics widget, WordPress analytics, web analytics, ecommerce
 Requires at least: 5.0
 Tested up to: 7.0
-Stable tag: 1.9.4
+Stable tag: 1.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -203,6 +203,13 @@ Needs assistance to use this plugin?
 Feel free to [Contact us](https://hasthemes.com/contact-us/)
 
 == Changelog ==
+= Version: 1.9.5 - Date: 30 Sep 2026 =
+* Security: Hardened the Google sign-in and sign-out flow
+* Security: The Google Analytics access token is no longer exposed to browser JavaScript
+* Fixed: Purchase event no longer fires again on page reload or for failed orders
+* Fixed: Tracking conflicts with some themes and plugins
+* Improved: Faster page loads with the cookie notice
+
 = Version: 1.9.4 - Date: 30 Aug 2026 =
 * Fixed: A few minor issues
 

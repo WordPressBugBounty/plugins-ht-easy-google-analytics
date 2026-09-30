@@ -587,15 +587,6 @@ class Manager {
 	}
 
 	/**
-	 * Get instance of Conversion Tracker
-	 *
-	 * @return Conversion_Tracker|null
-	 */
-	public function get_conversion_tracker() {
-		return $this->conversion_tracker;
-	}
-
-	/**
 	 * Check if pro version is available
 	 *
 	 * @return bool

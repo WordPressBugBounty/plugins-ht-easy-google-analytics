@@ -147,19 +147,20 @@ class Settings_Page {
             'apiEndpoint' => 'htga4/v1/settings',
             'rolesApiEndpoint' => 'htga4/v1/wholesaler-roles',
             'proAdvInfo' => array(
-                'purchaseURL' => 'https://hasthemes.com/plugins/google-analytics-plugin-for-wordpress?utm_source=wp-org&utm_medium=ht-ga4&utm_campaign=htga4_plugin-page#pricing',
+                'purchaseURL' => htga4_upgrade_url( 'pro-modal' ),
                 'message' => __('Our free version is great, but it doesn\'t have all our advanced features. The best way to unlock all of the features in our plugin is by purchasing the pro version.', 'ht-easy-ga4'),
             ),
             'siteUrl' => site_url(),
             'adminUrl' => admin_url(),
             'supportUrl' => 'https://hasthemes.com/contact-us/',
             'docsUrl' => 'https://hasthemes.com/docs/ht-easy-ga4/how-to/',
-            'proUrl' => 'https://hasthemes.com/plugins/google-analytics-plugin-for-wordpress?utm_source=wp-org&utm_medium=ht-ga4&utm_campaign=htga4_plugin-page#pricing',
+            'proUrl' => htga4_upgrade_url( 'settings' ),
             'loginUrl' => $this->get_auth_url(),
+            'logoutNonce' => wp_create_nonce( 'htga4_logout' ),
 
             // Ga4 data
             'email' => get_option( 'htga4_email' ),
-            'accessToken' => GA4_API_Service::get_instance()->get_access_token(),
+            'hasAccessToken' => (bool) GA4_API_Service::get_instance()->get_access_token(),
             'ngrokUrl' => htga4_is_ngrok_url(),
 
             // There is some dynamic defaults so manage it from one place here

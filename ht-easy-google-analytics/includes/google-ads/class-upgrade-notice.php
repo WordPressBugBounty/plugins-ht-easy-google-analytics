@@ -41,21 +41,15 @@ class Upgrade_Notice {
 
 		// Dismiss handler script on all admin pages
 		add_action( 'admin_footer', array( $this, 'add_dismiss_script' ) );
-
-		// Check for conversion milestones
-		add_action( 'admin_init', array( $this, 'check_conversion_milestones' ) );
 	}
 
 	/**
 	 * Display admin notices
 	 */
 	public function display_admin_notices() {
-		// Check if we should show conversion milestone notice
-		$milestone = get_transient( 'htga4_show_conversion_upgrade_notice' );
-
-		if ( $milestone ) {
-			$this->display_milestone_notice( $milestone );
-			delete_transient( 'htga4_show_conversion_upgrade_notice' );
+		// Only admins can act on Google Ads setup / upgrades.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
 		}
 
 		// Show setup incomplete notice
@@ -63,60 +57,10 @@ class Upgrade_Notice {
 			$this->display_setup_notice();
 		}
 
-		// Show feature discovery notice (once per month)
-		if ( $this->should_show_feature_notice() ) {
+		// Show feature discovery notice (once per month) — it's a Pro upsell, so not for Pro users
+		if ( ! htga4_is_pro() && $this->should_show_feature_notice() ) {
 			$this->display_feature_notice();
 		}
-	}
-
-	/**
-	 * Display milestone achievement notice
-	 *
-	 * @param int $milestone Number of conversions reached
-	 */
-	private function display_milestone_notice( $milestone ) {
-		$messages = array(
-			10 => array(
-				'title' => __( 'Congratulations! 10 Conversions Tracked', 'ht-easy-ga4' ),
-				'message' => __( 'You\'ve successfully tracked 10 conversions! Upgrade to Pro to unlock Enhanced Conversions and get 30% better match rates.', 'ht-easy-ga4' ),
-				'cta' => __( 'Boost Your Conversions', 'ht-easy-ga4' ),
-			),
-			25 => array(
-				'title' => __( 'Great Progress! 25 Conversions Tracked', 'ht-easy-ga4' ),
-				'message' => __( 'Your Google Ads tracking is working great! Pro features like Server-Side Tracking can help bypass ad blockers and improve accuracy.', 'ht-easy-ga4' ),
-				'cta' => __( 'Improve Tracking Accuracy', 'ht-easy-ga4' ),
-			),
-			50 => array(
-				'title' => __( 'Milestone Reached! 50 Conversions', 'ht-easy-ga4' ),
-				'message' => __( 'You\'re getting serious results! Pro\'s advanced analytics and ROAS tracking can help optimize your campaigns even further.', 'ht-easy-ga4' ),
-				'cta' => __( 'Unlock Advanced Analytics', 'ht-easy-ga4' ),
-			),
-			100 => array(
-				'title' => __( 'Amazing! 100 Conversions Tracked', 'ht-easy-ga4' ),
-				'message' => __( 'You\'re a power user! Upgrade to Pro for AI-powered optimization, Consent Mode v2, and unlimited conversion history.', 'ht-easy-ga4' ),
-				'cta' => __( 'Go Pro Now', 'ht-easy-ga4' ),
-			),
-		);
-
-		if ( ! isset( $messages[ $milestone ] ) ) {
-			return;
-		}
-
-		$notice = $messages[ $milestone ];
-		?>
-		<div class="notice notice-success is-dismissible htga4-upgrade-notice" data-notice-id="milestone-<?php echo $milestone; ?>">
-			<h3><?php echo esc_html( $notice['title'] ); ?></h3>
-			<p><?php echo esc_html( $notice['message'] ); ?></p>
-			<p>
-				<a href="<?php echo esc_url( $this->get_upgrade_url( 'milestone_' . $milestone ) ); ?>" class="button button-primary" target="_blank">
-					<?php echo esc_html( $notice['cta'] ); ?>
-				</a>
-				<button type="button" class="button button-secondary htga4-dismiss-notice">
-					<?php esc_html_e( 'Maybe Later', 'ht-easy-ga4' ); ?>
-				</button>
-			</p>
-		</div>
-		<?php
 	}
 
 	/**
@@ -148,19 +92,19 @@ class Upgrade_Notice {
 	private function display_feature_notice() {
 		$features = array(
 			array(
-				'title' => __( 'Enhanced Conversions Available in Pro', 'ht-easy-ga4' ),
-				'message' => __( 'Get 30% better conversion match rates with privacy-safe Enhanced Conversions.', 'ht-easy-ga4' ),
-				'icon' => '🔐',
+				'title' => __( 'More Conversion Events in Pro', 'ht-easy-ga4' ),
+				'message' => __( 'Send Add to Cart, Checkout, Product View and Category View conversions to Google Ads.', 'ht-easy-ga4' ),
+				'icon' => '🛒',
 			),
 			array(
-				'title' => __( 'Server-Side Tracking in Pro', 'ht-easy-ga4' ),
-				'message' => __( 'Bypass ad blockers and improve tracking accuracy with server-side conversion tracking.', 'ht-easy-ga4' ),
+				'title' => __( 'Ecommerce Reports in Pro', 'ht-easy-ga4' ),
+				'message' => __( 'See revenue, top products and sales by source inside your WordPress dashboard.', 'ht-easy-ga4' ),
+				'icon' => '📊',
+			),
+			array(
+				'title' => __( 'Unlimited Custom Events in Pro', 'ht-easy-ga4' ),
+				'message' => __( 'Track any button click, form submission or page view as a GA4 event, with no limit.', 'ht-easy-ga4' ),
 				'icon' => '⚡',
-			),
-			array(
-				'title' => __( 'AI-Powered Features in Pro', 'ht-easy-ga4' ),
-				'message' => __( 'Generate ad copy and get optimization tips with AI-powered features.', 'ht-easy-ga4' ),
-				'icon' => '🤖',
 			),
 		);
 
@@ -261,20 +205,6 @@ class Upgrade_Notice {
 							window.open('<?php echo esc_url( $this->get_upgrade_url( 'modal' ) ); ?>', '_blank');
 						}
 					}
-				};
-
-				// Show upgrade notice function
-				window.htga4ShowUpgradeNotice = function(feature, message) {
-					var $notice = $('<div class="notice notice-info htga4-inline-upgrade-notice">' +
-						'<p><strong>🎯 ' + message + '</strong></p>' +
-						'<p><a href="<?php echo esc_url( $this->get_upgrade_url( 'inline' ) ); ?>" target="_blank" class="button button-primary">Upgrade to Pro</a></p>' +
-						'</div>');
-
-					$('.htga4-settings-content').prepend($notice);
-
-					setTimeout(function() {
-						$notice.slideUp();
-					}, 10000);
 				};
 			});
 		</script>
@@ -397,86 +327,12 @@ class Upgrade_Notice {
 	}
 
 	/**
-	 * Check conversion milestones
-	 */
-	public function check_conversion_milestones() {
-		// Check once per day
-		$last_check = get_transient( 'htga4_milestone_check' );
-
-		if ( $last_check ) {
-			return;
-		}
-
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'htga4_conversion_log';
-
-		// Check if table exists
-		if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) !== $table_name ) {
-			return;
-		}
-
-		$count = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name" );
-		$count = intval( $count );
-
-		$milestones = array( 10, 25, 50, 100, 250, 500 );
-		$shown_milestones = get_option( 'htga4_shown_milestones', array() );
-
-		foreach ( $milestones as $milestone ) {
-			if ( $count >= $milestone && ! in_array( $milestone, $shown_milestones, true ) ) {
-				set_transient( 'htga4_show_conversion_upgrade_notice', $milestone, DAY_IN_SECONDS );
-				$shown_milestones[] = $milestone;
-				update_option( 'htga4_shown_milestones', $shown_milestones );
-				break;
-			}
-		}
-
-		set_transient( 'htga4_milestone_check', true, DAY_IN_SECONDS );
-	}
-
-	/**
 	 * Get upgrade URL with tracking parameters
 	 *
 	 * @param string $source Source of the upgrade link
 	 * @return string
 	 */
 	private function get_upgrade_url( $source = 'notice' ) {
-		return add_query_arg(
-			array(
-				'utm_source' => 'plugin',
-				'utm_medium' => 'google_ads',
-				'utm_campaign' => 'free_to_pro',
-				'utm_content' => $source,
-			),
-			'https://hasthemes.com/plugins/ht-easy-google-analytics-pro/'
-		);
-	}
-
-	/**
-	 * Get inline upgrade prompt HTML
-	 *
-	 * @param string $feature Feature name
-	 * @param string $message Upgrade message
-	 * @return string
-	 */
-	public static function get_inline_prompt( $feature, $message ) {
-		$url = add_query_arg(
-			array(
-				'utm_source' => 'plugin',
-				'utm_medium' => 'inline_prompt',
-				'utm_content' => $feature,
-			),
-			'https://hasthemes.com/plugins/ht-easy-google-analytics-pro/'
-		);
-
-		return sprintf(
-			'<div class="htga4-pro-prompt">
-				<span class="htga4-pro-badge">PRO</span>
-				<span class="htga4-pro-message">%s</span>
-				<a href="%s" target="_blank" class="htga4-pro-link">%s</a>
-			</div>',
-			esc_html( $message ),
-			esc_url( $url ),
-			esc_html__( 'Upgrade Now', 'ht-easy-ga4' )
-		);
+		return htga4_upgrade_url( 'gads-' . $source );
 	}
 }
